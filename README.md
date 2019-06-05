@@ -1,6 +1,6 @@
-# ldavidrh.github.io
+# Frente Radical Corinto Cauca
 Este repositorio incluye todo el codigo fuente para el proyecto final del curso de desarrollo de software II
-Integrantes:
+Integrantes:\n
   Juan David Gómez Orozco         1631689
   Walter Alberto Santacruz Gallo  1630645
   Luis David Restrepo Hoyos       1427086
