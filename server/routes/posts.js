@@ -1,27 +1,32 @@
 const express = require('express');
-const pg = require('pg');
-//Connection to database
-const { Pool, Client } = require('pg');
+const client = require('../conn/connection.js')
 
+//Connecting with the imported client
+client.connect();
+
+//Router
 const router = express.Router()
 
 //Get
-router.get('/', (req, res) =>{
-    res.send('Get request');
+router.get('/products', (req, res) => {
+   let data;
+    client.query('SELECT * FROM products;', (err, response)=>{
+        res.send(response.rows);
+    });
 });
 
 //Post
-router.post('/', (req, res) =>{
+router.post('/', (req, res) => {
     res.send('Post request');
 });
 
 //Put
-router.put('/', (req, res)=>{
+router.put('/', (req, res) => {
     res.send('Put request');
 })
 
 //Delete
-router.delete('/', (req, res)=>{
+router.delete('/', (req, res) => {
     res.send('Delete request');
 });
 
