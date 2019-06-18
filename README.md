@@ -12,9 +12,14 @@ Miguel Angel Gutierrez Prieto - 1626057 - Developer
 
 
 
-#Instalación
+# Instalación
+
 1.Abrir un terminal
+
 2.Clonar el repositorio
-3.Ingresar a la carpeta del proyecto cd FrenteRadicalCorintoCauca
+
+3.Ingresar a la carpeta del proyecto ~'cd FrenteRadicalCorintoCauca'
+
 4.Ejecutar npm install
+
 5.Ejecutar npm run start
