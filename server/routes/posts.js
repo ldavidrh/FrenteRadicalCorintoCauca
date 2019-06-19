@@ -12,6 +12,7 @@ router.get('/products', (req, res) => {
    let data;
     client.query('SELECT * FROM products;', (err, response)=>{
         res.send(response.rows);
+        client.end();
     });
 });
 
@@ -29,6 +30,5 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
     res.send('Delete request');
 });
-
 
 module.exports = router;
