@@ -1,16 +1,11 @@
 const { Client } = require('pg')
 
-//Data necessary to connect to de database
-const connectionData = {
-    user : 'luis',
-    host : 'localhost',
-    database : 'madlab',
-    password : 'ldavidrh',
-    port : 5432
-};
+//Creating a new client and passing the URI
 
-//Creating a new client and passing the connection data
-const client = new Client(connectionData);
+const client = new Client({
+    connectionString : 'postgres://chifuavyjdteuw:da94215e492472b304f57fc7d63c2c06fe2d8fc3f2d4b53c048e745d3fe5c559@ec2-107-20-230-70.compute-1.amazonaws.com:5432/d5j8frme84avk6',
+    ssl : true,
+});
 
 
 //Exporting the client as a module so it can be used in another file
