@@ -9,11 +9,11 @@ app.use(cors());
 app.use(bodyParser.json());
 const posts = require('./routes/posts');
 app.use('/', posts);
-//middleware
 
-
+//port
 const port = process.env.PORT || 8000;
 
+//Make the app listen through the selected port
 app.listen(port, () =>{
     console.log('server started on port ' + port);
 });

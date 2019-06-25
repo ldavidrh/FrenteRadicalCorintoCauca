@@ -1,8 +1,8 @@
 const express = require('express');
-const client = require('../conn/connection.js')
+const pool = require('../conn/connection.js')
 
 //Connecting with the imported client
-client.connect();
+pool.connect();
 
 //Router
 const router = express.Router()
@@ -10,9 +10,9 @@ const router = express.Router()
 //Get
 router.get('/products', (req, res) => {
    let data;
-    client.query('SELECT * FROM products;', (err, response)=>{
+    pool.query('SELECT * FROM products;', (err, response)=>{
         res.send(response.rows);
-        client.end();
+
     });
 });
 
