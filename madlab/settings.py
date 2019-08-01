@@ -20,8 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-with open("%s/secrets.json" % (BASE_DIR)) as f:
-    secrets = json.load(f.read())
+with open("%s/madlab/secrets.json" % (BASE_DIR)) as f:
+    secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
     try:
@@ -108,8 +108,8 @@ WSGI_APPLICATION = 'madlab.wsgi.application'
 DATABASES_NAME = get_secret("DATABASES_NAME")
 DATABASES_USER = get_secret("DATABASES_USER")
 DATABASES_PASSWORD = get_secret("DATABASES_PASSWORD")
-DATABASES_HOST = get_secret("DATABASE_HOST")
-DATABASES_PORT = get_secret("DATABASE_PORT")
+DATABASES_HOST = get_secret("DATABASES_HOST")
+DATABASES_PORT = get_secret("DATABASES_PORT")
 
 
 DATABASES = {
