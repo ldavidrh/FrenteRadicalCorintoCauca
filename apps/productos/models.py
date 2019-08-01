@@ -11,7 +11,6 @@ class Producto(models.Model):
     porc_descuento = models.FloatField()
     iva = models.FloatField()
     unidades = models.IntegerField()
-    detalles = models.TextField()
     activo = models.BooleanField(default = True)
 
 
