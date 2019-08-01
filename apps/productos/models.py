@@ -13,6 +13,7 @@ class Producto(models.Model):
     unidades = models.IntegerField()
     detalles = models.TextField()
     activo = models.BooleanField(default = True)
+    codigo_categoria = models.CharField(max_length = 10)
 
 
 def media_directory_path(instance, filename):
