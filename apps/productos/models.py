@@ -12,7 +12,8 @@ class Producto(models.Model):
     iva = models.FloatField()
     unidades = models.IntegerField()
     activo = models.BooleanField(default = True)
-    codigo_categoria = models.CharField(max_length = 10)
+    
+    codigo_subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
 
 
 def media_directory_path(instance, filename):

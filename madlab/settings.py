@@ -11,17 +11,31 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+with open("%s/secrets.json" % (BASE_DIR)) as f:
+    secrets = json.load(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+
+    except KeyError:
+        error_msg = "Set the {0} enviroment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6idveu+i(x#^qf0bryv)b2ti&h$ml9a*b#zz&rel2-qwhv+mwo'
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,6 +64,11 @@ INSTALLED_APPS = [
     'apps.administradores',
     'apps.gerentes',
     'apps.clientes',
+    'apps.tarjeta_credito',
+    'apps.tarjeta_debito',
+    'apps.productos_vendidos',
+    'apps.pagos_credito',
+    'apps.pagos_debito',
 ]
 
 MIDDLEWARE = [
@@ -86,14 +105,21 @@ WSGI_APPLICATION = 'madlab.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+DATABASES_NAME = get_secret("DATABASES_NAME")
+DATABASES_USER = get_secret("DATABASES_USER")
+DATABASES_PASSWORD = get_secret("DATABASES_PASSWORD")
+DATABASES_HOST = get_secret("DATABASE_HOST")
+DATABASES_PORT = get_secret("DATABASE_PORT")
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'madlab',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': DATABASES_NAME,
+        'USER': DATABASES_USER,
+        'PASSWORD': DATABASES_PASSWORD,
+        'HOST': DATABASES_HOST,
+        'PORT': DATABASES_PORT,
     }
 }
 

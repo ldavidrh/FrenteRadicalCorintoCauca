@@ -9,3 +9,5 @@ class Factura(models.Model):
     total = models.DecimalField(decimal_places = 2, max_digits = 7)
 
     cliente = models.ForeignKey('clientes.Cliente', on_delete = models.CASCADE)
+
+    producto = models.ManyToManyField('productos.Producto', through='productos_vendidos.Producto_vendido')
