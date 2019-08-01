@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'apps.categorias',
     'apps.subcategorias',
     'apps.detalles',
+    'apps.usuarios',
+    'apps.administradores',
+    'apps.gerentes',
+    'apps.clientes',
 ]
 
 MIDDLEWARE = [
