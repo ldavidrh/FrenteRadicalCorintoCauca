@@ -1,8 +1,8 @@
 from django.db import models
-from apps.Productos import Producto
+
 # Create your models here.
 class Almacen(models.Model):
-    codigo = models.CharField(max_length=10, primary_key=True)
+    codigo = models.CharField(primary_key=True, max_length=10)
     
     #Ciudades
     CALI = 'Cali'
@@ -28,7 +28,7 @@ class Almacen(models.Model):
 
     ciudad = models.CharField(
         choices = CIUDAD_CHOICES,
-        max_value= 20,
+        max_length= 20,
         default = CALI 
     )
 
