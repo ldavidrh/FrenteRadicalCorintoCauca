@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'apps.pages',
     'apps.productos',
     'apps.facturas',
-    'apps.proovedores',
     'apps.almacenes',
     'apps.categorias',
     'apps.subcategorias',
