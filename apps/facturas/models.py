@@ -1,5 +1,4 @@
 from django.db import models
-from clientes import Cliente
 # Create your models here.
 class Factura(models.Model):
     numero = models.CharField(max_length = 30, primary_key=True)
@@ -9,4 +8,4 @@ class Factura(models.Model):
     total_iva = models.DecimalField(decimal_places = 2, max_digits = 7)
     total = models.DecimalField(decimal_places = 2, max_digits = 7)
 
-    cliente = models.ForeignKey(Cliente, on_delete = models.CASCADE)
+    cliente = models.ForeignKey('clientes.Cliente', on_delete = models.CASCADE)
