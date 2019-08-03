@@ -1,4 +1,5 @@
 from django.db import models
+
 # Create your models here.
 class Factura(models.Model):
     numero = models.CharField(max_length = 30, primary_key=True)
