@@ -16,5 +16,5 @@ media
 */*/migrations/
 */migrations/
 
-#madlab/secrets.json
+madlab/secrets.json
 madlab/settings.py
