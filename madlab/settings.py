@@ -42,6 +42,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Tells Django to use a custom user model instead of the default one
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 # Application definition
 
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+        
     'apps.pages',
     'apps.productos',
     'apps.facturas',

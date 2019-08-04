@@ -1,8 +1,8 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Cliente(models.Model):
-    usuario = models.ForeignKey('usuarios.Usuario', on_delete=models.CASCADE)
-    correo = models.EmailField(max_length=40)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     telefono = models.CharField(max_length = 10)
     direccion = models.CharField(max_length = 40)

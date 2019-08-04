@@ -10,9 +10,15 @@ __pycache__/
 local_settings.py
 media
 
+### VS code ###
+.idea/
+
+### Project cache ###
 */*/__pycache__/
 */__pycache__/
 
+
+## Migrations ##
 */*/migrations/
 */migrations/
 
