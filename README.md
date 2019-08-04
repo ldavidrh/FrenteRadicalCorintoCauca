@@ -26,6 +26,6 @@ Ejecutar los siguientes comandos para efectuar los cambios realizados en los mod
         python manage.py migrate
  
 Por último, para correr el proyecto ejecutar el siguiente comando:
-    ```
+
         python manage.py runserver
         
