@@ -38,5 +38,5 @@ class Tarjeta_debito(models.Model):
 
     factura = models.ManyToManyField('facturas.Factura', through='pagos_debito.Pago_debito')
 
-    titular = models.ForeignKey('clientes.Cliente', on_delete=models.CASCADE)
+    titular = models.ForeignKey('usuarios.Usuario', on_delete=models.CASCADE)
 

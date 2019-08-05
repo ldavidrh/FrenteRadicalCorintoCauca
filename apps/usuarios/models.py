@@ -25,4 +25,6 @@ class Usuario(AbstractUser):
     )
     numero_documento = models.CharField(max_length = 30, primary_key = True)
     fecha_nacimiento = models.DateField()
+    telefono = models.CharField(max_length = 10)
+    direccion = models.CharField(max_length = 40)
     
