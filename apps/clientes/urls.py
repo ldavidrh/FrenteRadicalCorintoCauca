@@ -3,5 +3,5 @@ from apps.clientes.views import *
 
 app_name = 'clientes'
 urlpatterns=[
-    path('registro/', registro, name = 'registro'),
+    path('base/', base_view, name = 'registro'),
 ]

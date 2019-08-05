@@ -19,3 +19,6 @@ def registro(request):
         forms = FormularioRegistroCliente()
     
     return render(request, 'clientes/registro.html', {'form':forms})
+
+def base_view(request):
+    return render(request, 'clientes/base.html', {})
