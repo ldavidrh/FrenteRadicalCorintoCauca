@@ -1,6 +1,9 @@
 {% extends 'base.html'%}
 {% load bootstrap4 %}
 
+{% block title%}
+Registro
+{% endblock title%}
 {% block register_form%}
 <form method="POST">
     {% csrf_token %}
