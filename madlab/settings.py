@@ -17,8 +17,15 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#Indicates where is the media folder
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#Indicates where is the folder for static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_collected')
 
 with open("%s/madlab/secrets.json" % (BASE_DIR)) as f:
     secrets = json.loads(f.read())
@@ -48,6 +55,7 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,8 +72,6 @@ INSTALLED_APPS = [
     'apps.subcategorias',
     'apps.detalles',
     'apps.usuarios',
-    'apps.administradores',
-    'apps.gerentes',
     'apps.clientes',
     'apps.tarjeta_credito',
     'apps.tarjeta_debito',
@@ -89,7 +95,7 @@ ROOT_URLCONF = 'madlab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
