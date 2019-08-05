@@ -4,7 +4,14 @@
 {% block title%}
 Registro
 {% endblock title%}
-{% block register_form%}
+
+{% block titulo_contenido%}
+Registrar cliente
+{% endblock titulo_contenido%}
+
+
+{% block content%}
+
 <form method="POST">
     {% csrf_token %}
     {% bootstrap_form form %}
@@ -12,4 +19,5 @@ Registro
    <button class = "btn btn-outline-info" type = "submit"> Agregar</button>
 
 </form>
-{% endblock register_form%}
+{% endblock content%}
+
