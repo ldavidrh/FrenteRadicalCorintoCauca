@@ -72,8 +72,6 @@ INSTALLED_APPS = [
     'apps.subcategorias',
     'apps.detalles',
     'apps.usuarios',
-    'apps.administradores',
-    'apps.gerentes',
     'apps.clientes',
     'apps.tarjeta_credito',
     'apps.tarjeta_debito',
