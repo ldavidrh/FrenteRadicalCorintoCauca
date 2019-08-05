@@ -21,11 +21,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#Indicates where is the folder for static files
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_collected')
-
 with open("%s/madlab/secrets.json" % (BASE_DIR)) as f:
     secrets = json.loads(f.read())
 
@@ -63,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
         
+    #Apps propias       
     'apps.pages',
     'apps.productos',
     'apps.facturas',
@@ -94,7 +90,7 @@ ROOT_URLCONF = 'madlab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
