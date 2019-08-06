@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>AdminLTE | Registration Page</title>
+    <title>Registro</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
             <div class="footer">
                 <button type="submit" class="btn bg-olive btn-block">Registrarme</button>
 
-                <a href="login.html" class="text-center">I already have a membership</a>
+                <a href="{% url 'clientes:login' %}" class="text-center">Ya estoy registrado</a>
             </div>
         </form>
     </div>

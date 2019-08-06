@@ -244,15 +244,15 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span>Jane Doe <i class="caret"></i></span>
+                                <span>{{ user.first_name }} {{ user.last_name }} <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="{% static 'img/avatar3.png' %}" class="img-circle" alt="User Image" />
                                     <p>
-                                        Jane Doe - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{ user.first_name }} - {{ user.last_name }}
+                                        <small>{{ user.email }}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -270,10 +270,13 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <form class="logout-link" action = "{% url 'clientes:logout'%}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-default btn-flat">Cerrar Sesion</button>
+                                        </form>
                                     </div>
                                 </li>
                             </ul>
@@ -293,7 +296,7 @@
                             <img src="img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, Jane</p>
+                            <p>Hello, {{ user.first_name }}</p>
 
                             
                         </div>
@@ -386,7 +389,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-                                <li><a href="/static/pages/examples/login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
+                                <li><a href="{% url 'clientes:login' %}"><i class="fa fa-angle-double-right"></i> Login</a></li>
                                 <li><a href="{% url 'clientes:registro' %}" ><i class="fa fa-angle-double-right"></i> Registrate</a></li>
                                 <li><a href="{% static 'pages/examples/lockscreen.html' %}"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
                                 <li><a href="pages/examples/404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
