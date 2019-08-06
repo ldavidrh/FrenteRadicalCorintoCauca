@@ -22,9 +22,6 @@ def registro_view(request):
 
     return render(request, 'clientes/registro.html', {'form':form})
 
-<<<<<<< HEAD
-#def login():
-=======
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -41,4 +38,3 @@ def logout_view(request):
         logout(request)
         return redirect('home')
     
->>>>>>> JuanDavid-1631689
