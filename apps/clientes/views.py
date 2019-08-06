@@ -10,12 +10,12 @@ def registro(request):
         if form.is_valid():
             instance = form.save(commit = False)
             numero_documento = form.cleaned_data.get('numero_documento')
-            instance.username = email
+            instance.username = form.cleaned_data.get('email')
             instance.save()
             messages.success(request, 'Cliente registrado exitosamente')
-            return redirect('inicio')
+            return redirect('home')
         
     else:
         form = FormularioRegistroCliente()
-    
+
     return render(request, 'clientes/registro.html', {'form':form})
