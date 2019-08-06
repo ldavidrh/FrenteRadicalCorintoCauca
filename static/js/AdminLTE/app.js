@@ -18,7 +18,7 @@ $(function() {
             $('.left-side').removeClass("collapse-left");
             $(".right-side").removeClass("strech");
             $('.row-offcanvas').toggleClass("relative");
-        } else {
+        } else {https://www.google.com/search?client=ubuntu&channel=fs&q=f&ie=utf-8&oe=utf-8
             //Else, enable content streching
             $('.left-side').toggleClass("collapse-left");
             $(".right-side").toggleClass("strech");

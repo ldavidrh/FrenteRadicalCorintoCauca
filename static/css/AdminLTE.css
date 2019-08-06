@@ -183,7 +183,7 @@ img {
   background-color: #eaeaec !important;
 }
 .bg-black {
-  background-color: #222222 !important;
+  background-color: #333333 !important;
 }
 .bg-red {
   background-color: #f56954 !important;
@@ -2605,14 +2605,14 @@ Component: timeline
 }
 /* skin-black logo */
 .skin-black .logo {
-  background-color: #333333;
+  background-color: #e51b23;
   color: #f9f9f9;
 }
 .skin-black .logo > a {
   color: #f9f9f9;
 }
 .skin-black .logo:hover {
-  background: #303030;
+  background: #333333;
 }
 /* skin-black content header */
 .skin-black .right-side > .content-header {
@@ -2654,7 +2654,7 @@ Component: timeline
   background: #444;
 }
 .skin-black .left-side {
-  background: #333;
+  background: #e51b23;
 }
 .skin-black .sidebar a {
   color: #eee;

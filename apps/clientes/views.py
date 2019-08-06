@@ -13,9 +13,11 @@ def registro(request):
             instance.username = email
             instance.save()
             messages.success(request, 'Cliente registrado exitosamente')
-            return redirect('home')
+            return redirect('clientes:login')
         
     else:
         form = FormularioRegistroCliente()
 
     return render(request, 'clientes/registro.html', {'form':form})
+
+#def login():
