@@ -9,11 +9,11 @@ def registro(request):
         form = FormularioRegistroCliente(request.POST)
         if form.is_valid():
             instance = form.save(commit = False)
-            numero_documento = form.cleaned_data.get('numero_documento')
+            email = form.cleaned_data.get('email')
             instance.username = email
             instance.save()
             messages.success(request, 'Cliente registrado exitosamente')
-            return redirect('inicio')
+            return redirect('clientes:registro')
         
     else:
         form = FormularioRegistroCliente()
