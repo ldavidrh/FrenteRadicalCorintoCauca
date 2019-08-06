@@ -2612,7 +2612,7 @@ Component: timeline
   color: #f9f9f9;
 }
 .skin-black .logo:hover {
-  background: #333333;
+  background: #fff;
 }
 /* skin-black content header */
 .skin-black .right-side > .content-header {
@@ -2629,10 +2629,10 @@ Component: timeline
 }
 /* skin-black sidebar */
 .skin-black .sidebar {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #e51b23;
 }
 .skin-black .sidebar > .sidebar-menu > li {
-  border-top: 1px solid #333;
+  border-top: 1px solid #e51b23;
   border-bottom: 0px solid #df3a3f;
 }
 .skin-black .sidebar > .sidebar-menu > li:first-of-type {
