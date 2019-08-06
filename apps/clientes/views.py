@@ -18,4 +18,4 @@ def registro(request):
     else:
         form = FormularioRegistroCliente()
 
-    return render(request, 'clientes/registro.html', {'form':form})
+    return render(request, '/register.html', {'form':form})
