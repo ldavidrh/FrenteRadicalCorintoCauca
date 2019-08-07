@@ -8,12 +8,12 @@ class Producto(models.Model):
     fabricante = models.CharField(max_length=10)
     descripcion = models.TextField()
     precio = models.DecimalField(decimal_places=2, max_digits=6)
-    porc_descuento = models.FloatField()
     iva = models.FloatField()
     unidades = models.IntegerField()
     activo = models.BooleanField(default = True)
     
     codigo_subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
+    porc_descuento = models.ForeignKey()
 
 
 def media_directory_path(instance, filename):
