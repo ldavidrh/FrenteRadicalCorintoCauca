@@ -11,5 +11,18 @@ Bienvenido a MadLab
 
 
 {% block content%}
-<h1>Aqui irán los productos listados</h1>
+{% if user.is_authenticated %}
+{% if user.is_superuser and user.is_staff %}
+    <h1>ADMIN</h1>
+{% elif user.is_staff %}
+    <h1>GERENTE</h1>
+{% else %}
+    <h1>CLIENTE</h1> 
+{% endif %}
+    
+{% else %}    
+    <h1>INVITADO</h1>
+{% endif %}
+
+
 {% endblock content%}
