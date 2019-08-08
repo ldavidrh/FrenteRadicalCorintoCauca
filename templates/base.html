@@ -46,7 +46,7 @@
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
+           <img src="{% static 'logo.png'%}" alt="MadLab" height = "44">
             <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -332,7 +332,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li>
-                        <a href="pages/widgets.html">
+                        <a href="{% static 'pages/widgets.html'%}">
                             <i class="fa fa-th"></i> <span>Widgets</span> <small
                                 class="badge pull-right bg-green">new</small>
                         </a>
@@ -360,7 +360,7 @@
                         <ul class="treeview-menu">
                             <li><a href="pages/UI/general.html"><i class="fa fa-angle-double-right"></i> General</a>
                             </li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-angle-double-right"></i> Icons</a></li>
+                            <li><a href="{% static 'pages/UI/icons.html' %}"><i class="fa fa-angle-double-right"></i> Icons</a></li>
                             <li><a href="pages/UI/buttons.html"><i class="fa fa-angle-double-right"></i> Buttons</a>
                             </li>
                             <li><a href="pages/UI/sliders.html"><i class="fa fa-angle-double-right"></i> Sliders</a>
@@ -449,8 +449,8 @@
             </section>
             <!-- Main content -->
             <section class="content">
-                {% block content %}
-                {% endblock content %}
+                {% block contenido %}
+                {% endblock contenido %}
             </section><!-- /.content -->
         </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->

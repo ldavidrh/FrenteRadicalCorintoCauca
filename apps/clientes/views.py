@@ -16,7 +16,6 @@ def registro_view(request):
             instance.save()
             messages.success(request, 'Cliente registrado exitosamente')
             return redirect('clientes:login')
-        
     else:
         form = FormularioRegistroCliente()
 
