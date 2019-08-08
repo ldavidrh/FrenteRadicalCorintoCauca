@@ -139,16 +139,16 @@
                     <!-- INVITADO -->
                     <li>
                         <div class="pull-right" style="padding: 6%">
-                            <button class="btn btn-default btn-flat">
-                                <a href="{% url 'clientes:login' %}">INICIAR SESION</a>
-                            </button>
+                            <a href="{% url 'clientes:login' %}">
+                                <button class="btn btn-default btn-flat">INICIAR SESION</button>
+                            </a>
                         </div>
-                    </li>
+                    </li> 
                     <li>
                         <div class="pull-right" style="padding-top: 7%;">
-                            <button class="btn btn-default btn-flat">
-                                <a href="{% url 'clientes:registro' %}">REGISTRATE</a>
-                            </button>
+                            <a href="{% url 'clientes:registro' %}">
+                                <button class="btn btn-default btn-flat">REGISTRATE</button>
+                            </a>
                         </div>
                     </li>
                     {% endif %}
