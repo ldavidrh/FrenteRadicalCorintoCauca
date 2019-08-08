@@ -24,3 +24,5 @@ media
 
 madlab/secrets.json
 madlab/settings.py
+secrets.json
+settings.py
