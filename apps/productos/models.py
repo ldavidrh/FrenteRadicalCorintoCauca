@@ -13,7 +13,7 @@ class Producto(models.Model):
     activo = models.BooleanField(default = True)
     
     codigo_subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
-    porc_descuento = models.ForeignKey()
+    #porc_descuento = models.ForeignKey()
 
 
 def media_directory_path(instance, filename):

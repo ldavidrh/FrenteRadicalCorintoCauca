@@ -4,5 +4,5 @@ from django.contrib import messages
 
 # Create your views here.
 
-def productos_view(request):
-    if request.method == 'POST':
+#def productos_view(request):
+    #if request.method == 'POST':
