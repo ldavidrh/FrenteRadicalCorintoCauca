@@ -39,4 +39,4 @@ def modificar_categoria_view(request, id):
             form.save()
         return redirect('categorias:consultar_categorias')
 
-    return render(request, 'categorias/registro.html', {'form': form})
+    return render(request, 'categorias/modificar.html', {'form': form})
