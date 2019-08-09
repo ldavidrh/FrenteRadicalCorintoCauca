@@ -6,36 +6,43 @@ Mi perfil
 {% endblock titulo%}
 
 {% block titulo_contenido%}
-Mi perfil
+<h2 class="box-title">Mi perfil</h2>
 {% endblock titulo_contenido%}
 
 {% block contenido %}
-<div class="row">
-        
-        <div class="col-md-4">
-            <div class="box box-solid box-danger">
-                <div class="box-header">
-                    <h3 class="box-title">{{categoria.nombre}}</h3>
-                    <div class="box-tools pull-right">
-                        <a href="{% url 'categorias:modificar_categoria' categoria.id %}">
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
-                        </a>
-                        <a href="{% url 'categorias:eliminar_categoria' categoria.id %}">
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fa fa-times"></i></i>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <p>
-                        <!--informacion adicional de la categoria-->
-                    </p>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-            <!--widgets-->
-        </div>
-    
-    </div>
-    <!--filas-->
+<h2 class="box-title">Información de cuenta</h2>
+
+<div id="profile" class="tab-pane">
+          <div class="panel-body bio-graph-info">
+            <div class="row">
+              <div class="bio-row">
+                <p><span>Nombre </span>: {{user.first_name}} {{user.last_name}} </p>
+              </div>
+              <div class="bio-row">
+                <p><span>Last Name </span>: Smith</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Birthday</span>: 27 August 1987</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Country </span>: United</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Occupation </span>: UI Designer</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Email </span>:jenifer@mailname.com</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Mobile </span>: (+6283) 456 789</p>
+              </div>
+              <div class="bio-row">
+                <p><span>Phone </span>: (+021) 956 789123</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+          </div>
+      </div>
+
 {% endblock contenido%}

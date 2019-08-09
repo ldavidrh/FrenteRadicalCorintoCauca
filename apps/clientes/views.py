@@ -3,6 +3,7 @@ from .forms import FormularioRegistroCliente
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from .models import Cliente
 
 
 # Create your views here.
@@ -37,3 +38,6 @@ def logout_view(request):
         logout(request)
         return redirect('home')
     
+def perfil_view(request, numero_documento):
+    cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
+    return render(request, 'clientes/perfil.html', {'cliente': cliente})
