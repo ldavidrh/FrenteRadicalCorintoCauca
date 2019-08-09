@@ -14,7 +14,7 @@
 
 @font-face{
   font-family:"fontChido";
-  src: url('../fonts/fontChido.otf');
+  src: url('../fonts/Trade\ Gothic\ LT.ttf');
 }
 
 html,
@@ -546,7 +546,7 @@ body > .header .logo .icon {
 .sidebar .sidebar-menu .treeview-menu > li > a {
   padding: 5px 5px 5px 15px;
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   margin: 0px 0px;
 }
 .sidebar .sidebar-menu .treeview-menu > li > a > .fa,
@@ -572,7 +572,7 @@ body > .header .logo .icon {
 .user-panel > .info {
   font-weight: 600;
   padding: 5px 5px 5px 15px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
 }
 .user-panel > .info > p {
@@ -885,13 +885,13 @@ body > .header .logo .icon {
   z-index: 5;
   color: #f9f9f9;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 17px;
+  font-size: 20px;
   text-shadow: 2px 2px 3px #333333;
   margin-top: 10px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > p > small {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-body {
   padding: 15px;

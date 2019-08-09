@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Mi perfil
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Mi perfil
+{% endblock titulo_contenido%}
+
+{% block contenido %}
+<div class="row">
+        
+        <div class="col-md-4">
+            <div class="box box-solid box-danger">
+                <div class="box-header">
+                    <h3 class="box-title">{{categoria.nombre}}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="{% url 'categorias:modificar_categoria' categoria.id %}">
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
+                        </a>
+                        <a href="{% url 'categorias:eliminar_categoria' categoria.id %}">
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>
+                        <!--informacion adicional de la categoria-->
+                    </p>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <!--widgets-->
+        </div>
+    
+    </div>
+    <!--filas-->
+{% endblock contenido%}
