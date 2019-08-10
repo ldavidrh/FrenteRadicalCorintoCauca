@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <meta charset="UTF-8">
+    <title>responsive video background</title>
+
+    <style>
+        #home{
+            background: none;
+            height: 100%;
+        }
+
+        #home-bg-video{
+            position: fixed;
+            top:50%;
+            left:50%;
+            transform: translateX(-50%) translateY(-50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <section id="home">
+        <video src="video.mp4" id="home-bg-video" autoplay loop muted></video>
+    </section>
+</body>
+</html>

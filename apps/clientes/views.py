@@ -39,5 +39,9 @@ def logout_view(request):
         return redirect('home')
     
 def perfil_view(request, numero_documento):
-    cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
+    try:
+        cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
+    except  Cliente.DoesNotExist:
+        cliente = None
+    
     return render(request, 'clientes/perfil.html', {'cliente': cliente})

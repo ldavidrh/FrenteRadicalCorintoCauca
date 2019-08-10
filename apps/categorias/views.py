@@ -26,6 +26,7 @@ def consultar_categorias_view(request):
 
 def eliminar_categoria_view(request, id):
     Categoria.objects.filter(pk=id).delete()
+    messages.success(request, 'Categoria eliminada exitosamente')
     return redirect('categorias:consultar_categorias')
 
 
@@ -37,6 +38,7 @@ def modificar_categoria_view(request, id):
         form = FormularioCreacionCategoria(request.POST, instance = categoria)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Categoria modificada exitosamente')
         return redirect('categorias:consultar_categorias')
 
     return render(request, 'categorias/modificar.html', {'form': form})

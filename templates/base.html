@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html >
 
 <head>
     <meta charset="UTF-8">
@@ -273,8 +273,8 @@
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Agregar gerente</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Consultar gerentes</a></li>
+                                    <li><a href="{% url 'gerentes:registro' %}"><i class="fa fa-angle-double-right"></i>Agregar gerente</a></li>
+                                    <li><a href="{% url 'gerentes:consulta' %}"><i class="fa fa-angle-double-right"></i>Consultar gerentes</a></li>
                                 </ul>
                         </li>
                         {% endif %}
@@ -293,14 +293,21 @@
                     {% block titulo_contenido %}
                     {% endblock titulo_contenido %}
                 </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="active">Home</li>
-                </ol>
             </section>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class ="alert alert-{{ message.tags }} alert-dismissable">
+                        <i class="fa fa-check"></i>
+                        <button type="button"class= "close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
             <!-- Main content -->
             <section class="content">
                 {% block contenido %}
+                
                 {% endblock contenido %}
             </section><!-- /.content -->
         </aside><!-- /.right-side -->

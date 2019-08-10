@@ -13,36 +13,50 @@ Mi perfil
 <h2 class="box-title">Información de cuenta</h2>
 
 <div id="profile" class="tab-pane">
-          <div class="panel-body bio-graph-info">
-            <div class="row">
-              <div class="bio-row">
-                <p><span>Nombre </span>: {{user.first_name}} {{user.last_name}} </p>
-              </div>
-              <div class="bio-row">
-                <p><span>Last Name </span>: Smith</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Birthday</span>: 27 August 1987</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Country </span>: United</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Occupation </span>: UI Designer</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Email </span>:jenifer@mailname.com</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Mobile </span>: (+6283) 456 789</p>
-              </div>
-              <div class="bio-row">
-                <p><span>Phone </span>: (+021) 956 789123</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-          </div>
+  <div class="panel-body bio-graph-info">
+    <div class="row">
+      <div class="bio-row">
+        <h4>Nombre : {{user.first_name}} {{user.last_name}}</h4>
       </div>
+      <div class="bio-row">
+        <h4>E-mail : {{user.email}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="box-title">Información personal</h2>
+
+<div id="profile" class="tab-pane">
+    <div class="panel-body bio-graph-info">
+      <div class="row">
+        <div class="bio-row">
+          <h4>Fecha de nacimiento : {{user.fecha_nacimiento}} </h4>
+        </div>
+        <div class="bio-row">
+          <h4>Tipo de documento : {{user.tipo_documento}} </h4>
+        </div>
+        <div class="bio-row">
+          <h4>N° documento : {{user.numero_documento}} </h4>
+        </div>
+    </div>
+  </div>
+</div>
+{% if not user.is_staff %}
+<h2 class="box-title">Información cliente</h2>
+
+<div id="profile" class="tab-pane">
+    <div class="panel-body bio-graph-info">
+      <div class="row">
+        <div class="bio-row">
+          <h4>N° telefonico : {{cliente.telefono}} </h4>
+        </div>
+        <div class="bio-row">
+          <h4>Direccion : {{cliente.direccion}} </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
 
 {% endblock contenido%}

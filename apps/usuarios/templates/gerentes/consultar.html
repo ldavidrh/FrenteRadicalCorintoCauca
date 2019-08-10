@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Consultar gerentes
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Gerentes
+{% endblock titulo_contenido%}
+
+{% block contenido %}
+<!--filas donde se contendran 3 widgets-->
+<div class="row">
+    {% for gerente in gerentes %}
+    <div class="col-md-4">
+        {% if gerente.is_active %}
+        <div class="box box-solid box-danger">
+            <div class="box-header">
+                <h3 class="box-title">{{gerente.first_name}} {{gerente.last_name}}</h3>
+                <div class="box-tools pull-right">
+                    <a href="{% url 'gerentes:modificar' gerente.numero_documento %}">
+                        <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
+                    </a>
+                    <a href="{% url 'gerentes:eliminar' gerente.numero_documento %}">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fa fa-times"></i></i>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">{{gerente.first_name}} {{gerente.last_name}}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="{% url 'gerentes:activar' gerente.numero_documento %}">
+                            <button class="btn  btn-sm">
+                              Reactivar
+                                
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="box-body">
+                        <h3 class="box-title">Información gerente</h3>
+
+                        <div id="profile" class="tab-pane">
+                            <div class="panel-body bio-graph-info">
+                              <div class="row">
+                                <div class="bio-row">
+                                <h4>E-mail : {{gerente.username}}</h4>
+                                </div>
+                                <div class="bio-row">
+                                  <h4>Fecha de nacimiento : {{gerente.fecha_nacimiento}} </h4>
+                                </div>
+                                <div class="bio-row">
+                                  <h4>Tipo de documento : {{gerente.tipo_documento}} </h4>
+                                </div>
+                                <div class="bio-row">
+                                  <h4>N° documento : {{gerente.numero_documento}} </h4>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+        <!--widgets-->
+    </div>
+    {% endfor %}
+
+</div>
+<!--filas-->
+
+<!--widget-->
+{% endblock contenido%}
