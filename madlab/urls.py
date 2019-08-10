@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('cliente/', include('apps.clientes.urls', namespace = 'clientes')),
+    path('gerente/', include('apps.usuarios.urls', namespace = 'gerentes')),
     path('productos/', include('apps.productos.urls', namespace='productos')),
     path('categorias/', include('apps.categorias.urls', namespace='categorias')),
     path('subcategorias/', include('apps.subcategorias.urls', namespace='subcategorias')),

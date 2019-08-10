@@ -9,12 +9,12 @@ class Usuario(AbstractUser):
             return self.get_full_name()
 
     #Tipo de documento
-    TARJETA_IDENTIDAD = 'tarjeta_identidad'
-    CEDULA = 'cedula_ciudadania'
-    PASAPORTE = 'pasaporte'
+    TARJETA_IDENTIDAD = 'Tarjeta de identidad'
+    CEDULA = 'Cedula de ciudadania'
+    PASAPORTE = 'Pasaporte'
     TIPO_DOCUMENTO_CHOICES={
-        (TARJETA_IDENTIDAD, 'Tarjeta identidad'),
-        (CEDULA, 'Cedula'),
+        (TARJETA_IDENTIDAD, 'Tarjeta de identidad'),
+        (CEDULA, 'Cedula de ciudadania'),
         (PASAPORTE, 'Pasaporte'),
     }
 
