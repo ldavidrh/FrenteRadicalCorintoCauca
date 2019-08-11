@@ -28,7 +28,7 @@ class FormularioRegistroGerente(UserCreationForm):
         model = Usuario
         fields = ('first_name', 'last_name', 'tipo_documento', 'numero_documento', 'fecha_nacimiento', 'email', 'password1', 'password2')
 
-class FormularioModificarGerente(UserCreationForm):
+class FormularioModificarGerente(forms.ModelForm):
     def clean(self):
         cleaned_data = super(FormularioModificarGerente, self).clean()
         fecha_nacimiento = cleaned_data.get('fecha_nacimiento')
