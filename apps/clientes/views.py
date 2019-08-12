@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import FormularioModificarCliente, FormularioModificarCuenta
+from .forms import FormularioModificarCliente, FormularioModificarCuenta, FormularioRegistroCliente
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout
