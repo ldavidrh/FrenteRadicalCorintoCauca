@@ -34,4 +34,4 @@ class Almacen(models.Model):
 
     direccion = models.CharField(max_length=30)
 
-    producto = models.ManyToManyField('productos.Producto')
+    producto = models.ManyToManyField('productos.Producto', blank=True)

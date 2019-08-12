@@ -29,9 +29,40 @@ Categorias
                 </div>
             </div>
             <div class="box-body">
-                <p>
-                    <!--informacion adicional de la categoria-->
-                </p>
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Subcategorias</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-striped">
+                            <tr>
+                                <th style="width: 10px">id</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                            {% for subcategoria in categoria.subcategorias.all %}
+                            <tr>
+                                <td>{{ subcategoria.id }}</td>
+                                <td>{{ subcategoria.nombre }}</td>
+
+                                <td>
+                                    <!--Boton subcategoria-->
+                                    <a href="{% url 'subcategorias:modificar_subcategoria' subcategoria.id %}">
+                                        <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
+                                    </a>
+                                    <!--Boton eliminar-->
+                                    <a href="{% url 'subcategorias:eliminar_subcategoria' subcategoria.id %}">
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fa fa-times"></i></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
             </div><!-- /.box-body -->
         </div><!-- /.box -->
         <!--widgets-->

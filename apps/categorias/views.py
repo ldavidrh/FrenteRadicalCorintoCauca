@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import FormularioCreacionCategoria
 from django.contrib import messages
 from .models import Categoria
+from apps.subcategorias.models import Subcategoria
 
 # Create your views here.
-
-
 def crear_categoria_view(request):
     if request.method == 'POST':
         form = FormularioCreacionCategoria(request.POST)
@@ -20,7 +19,9 @@ def crear_categoria_view(request):
 
 
 def consultar_categorias_view(request):
-    categorias = Categoria.objects.all().values()
+    #categorias = Categoria.objects.all().values()
+    categorias = Categoria.objects.all()
+    print(categorias)
     return render(request, 'categorias/consultar.html', {'categorias': categorias})
 
 
@@ -31,7 +32,7 @@ def eliminar_categoria_view(request, id):
 
 
 def modificar_categoria_view(request, id):
-    categoria = Categoria.objects.get(id=id)
+    categoria = Categoria.objects.get(id = id)
     if request.method == 'GET':
         form = FormularioCreacionCategoria(instance = categoria)
     else:
