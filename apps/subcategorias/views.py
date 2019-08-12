@@ -23,6 +23,7 @@ def consultar_subcategorias_view(request):
 
 def eliminar_subcategoria_view(request, id):
     subcategoria = Subcategoria.objects.filter(pk = id).delete()
+    messages.success(request, 'Subcategoria eliminada exitosamente')
     return redirect('categorias:consultar_categorias')
 
 def modificar_subcategoria_view(request, id):
@@ -33,6 +34,7 @@ def modificar_subcategoria_view(request, id):
         form = FormularioCreacionSubcategoria(request.POST, instance = subcategoria)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Subcategoria modifacada exitosamente')
         return redirect('categorias:consultar_categorias')
 
     return render(request, 'subcategorias/modificar.html', {'form': form})

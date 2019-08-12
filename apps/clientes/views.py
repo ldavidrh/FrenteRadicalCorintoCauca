@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import FormularioRegistroCliente
+from .forms import FormularioModificarCliente, FormularioModificarCuenta
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout
 from .models import Cliente
+from ..usuarios.models import Usuario
 
 
 # Create your views here.
@@ -42,6 +43,60 @@ def perfil_view(request, numero_documento):
     try:
         cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
     except  Cliente.DoesNotExist:
-        cliente = None
-    
-    return render(request, 'clientes/perfil.html', {'cliente': cliente})
+        cliente = Usuario.objects.get(numero_documento=numero_documento)
+
+    if request.method == 'POST':
+        if cliente.is_staff:
+            form = FormularioModificarCuenta(request.POST, instance=cliente)
+        else:
+            form = FormularioModificarCliente(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cambios guardados exitosamente')
+        return redirect('clientes:perfil', numero_documento)
+
+    else:
+        if cliente.is_staff:
+            form = FormularioModificarCuenta(instance=cliente)
+        else:
+            form = FormularioModificarCliente(instance=cliente) 
+            
+    return render(request, 'clientes/perfil.html', {'form':form, 'cliente': cliente})
+
+def change_password(request):
+    if request.method=='POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cambios guardados exitosamente')
+            return redirect('clientes:login')
+        else:
+            return redirect('clientes:change_password')
+    else:
+        form = PasswordChangeForm(user= request.user)
+        return render(request, 'clientes/change_password.html', {'form':form})
+
+def eliminarCuenta_view(request, numero_documento):
+    usuario = Usuario.objects.get(numero_documento=numero_documento)
+    if request.method == 'GET':
+        usuario.is_active = 'f'
+        usuario.save()
+        messages.success(request, 'Cuenta eliminado exitosamente')
+        return redirect('home')
+
+def consultarClientes_view(request):
+    clientes = Cliente.objects.filter(is_staff='f', is_superuser='f')
+    return render(request, 'clientes/consultar.html', {'clientes': clientes})
+
+def activarCliente_view(request, numero_documento):
+    usuario = Usuario.objects.get(numero_documento=numero_documento)
+    if request.method == 'GET':
+        usuario.is_active = 't'
+        usuario.save()
+        messages.success(request, 'Cuenta reactivada exitosamente')
+        return redirect('clientes:consulta')
+
+
+
+

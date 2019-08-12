@@ -28,4 +28,40 @@ class FormularioRegistroCliente(UserCreationForm):
     class Meta():
         model = Cliente
         fields = ('first_name', 'last_name', 'tipo_documento', 'numero_documento', 'fecha_nacimiento', 'telefono','direccion', 'email', 'password1', 'password2')
+
+
+class FormularioModificarCliente(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(FormularioModificarCliente, self).clean()
+        fecha_nacimiento = cleaned_data.get('fecha_nacimiento')
         
+        if fecha_nacimiento:
+            fecha_nacimiento = ('%s' % (fecha_nacimiento))
+            fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+            if datetime.today() <= fecha_nacimiento:
+                msg = u"Por favor ingrese una fecha de nacimiento valida"
+                self.add_error('fecha_nacimiento', msg)       
+                        
+        return cleaned_data
+    
+    class Meta():
+        model = Cliente
+        fields = ('first_name', 'last_name', 'fecha_nacimiento', 'telefono','direccion')
+
+class FormularioModificarCuenta(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(FormularioModificarCuenta, self).clean()
+        fecha_nacimiento = cleaned_data.get('fecha_nacimiento')
+                
+        if fecha_nacimiento:
+            fecha_nacimiento = ('%s' % (fecha_nacimiento))
+            fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+            if datetime.today() <= fecha_nacimiento:
+                msg = u"Por favor ingrese una fecha de nacimiento valida"
+                self.add_error('fecha_nacimiento', msg)       
+                                
+        return cleaned_data
+            
+    class Meta():
+        model = Usuario
+        fields = ('first_name', 'last_name', 'fecha_nacimiento')
