@@ -10,6 +10,22 @@ Mi perfil
 <h2 class="box-title">Mi perfil</h2>
 {% endblock titulo_contenido%}
 
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+        <a href="#">
+                <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+                <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+                {% for subcategoria in categoria.subcategorias.all %}
+                <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+                {% endfor %}
+        </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
 {% block contenido %}
     <div class='row'>
         <div class='col-xs-12'>
@@ -89,11 +105,30 @@ Mi perfil
                                 <button class="btn btn-primary" type="submit" >Guardar cambios</button>
                                 <a class="btn btn-info" href="{% url 'clientes:change_password' %}">Cambiar contraseña</a>
                                 
-                                <a class="btn btn-danger" href="{% url 'clientes:eliminar-cuenta' user.numero_documento %}">
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#compose-modal">
                                   Eliminar cuenta
                                 </a>
                                 
                             </div>
+                            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">¿Esta seguro que desea eliminar su cuenta?</h4>
+                                        </div>
+                                        
+                                            <div class="modal-footer clearfix">
+                        
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancelar</button>
+                                                <a class="btn btn-primary pull-left" href="{% url 'clientes:eliminar-cuenta' user.numero_documento %}">
+                                                  Si, estoy seguro
+                                                </a>    
+                                            </div>
+                                        
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
                             
                         </form>
                     </div><!-- /#ion-icons -->

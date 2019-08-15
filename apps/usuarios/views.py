@@ -4,9 +4,11 @@ from .forms import FormularioModificarGerente
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Usuario
+from apps.categorias.models import Categoria
 
 # Create your views here.
 def registroGerente_view(request):
+    categorias = Categoria.objects.all()
     if request.method == 'POST':
         form = FormularioRegistroGerente(request.POST)
         if form.is_valid():
@@ -20,11 +22,12 @@ def registroGerente_view(request):
     else:
         form = FormularioRegistroGerente()
 
-    return render(request, 'gerentes/crearGerente.html', {'form':form})
+    return render(request, 'gerentes/crearGerente.html', {'form':form, 'categorias': categorias})
 
 def consultarGerentes_view(request):
+    categorias = Categoria.objects.all()
     gerentes = Usuario.objects.filter(is_staff='t', is_superuser='f')
-    return render(request, 'gerentes/consultar.html', {'gerentes': gerentes})
+    return render(request, 'gerentes/consultar.html', {'gerentes': gerentes, 'categorias': categorias})
 
 def eliminarGerente_view(request, numero_documento):
     gerente = Usuario.objects.get(numero_documento=numero_documento)
@@ -44,6 +47,7 @@ def activarGerente_view(request, numero_documento):
 
 
 def modificarGerente_view(request, numero_documento):
+    categorias = Categoria.objects.all()
     gerente = Usuario.objects.get(numero_documento=numero_documento)
     if request.method == 'GET':
         form = FormularioModificarGerente(instance = gerente)
@@ -54,4 +58,4 @@ def modificarGerente_view(request, numero_documento):
             messages.success(request, 'Gerente modificado exitosamente')
         return redirect('gerentes:consulta')
 
-    return render(request, 'gerentes/modificar.html', {'form': form})
+    return render(request, 'gerentes/modificar.html', {'form': form, 'categorias': categorias})

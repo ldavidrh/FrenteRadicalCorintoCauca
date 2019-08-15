@@ -9,6 +9,22 @@ Consultar categorias
 Categorias
 {% endblock titulo_contenido%}
 
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+        <a href="#">
+                <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+                <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+                {% for subcategoria in categoria.subcategorias.all %}
+                <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+                {% endfor %}
+        </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
 {% block contenido %}
 <!--filas donde se contendran 3 widgets-->
 <div class="row">
@@ -21,12 +37,31 @@ Categorias
                     <a href="{% url 'categorias:modificar_categoria' categoria.id %}">
                         <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
                     </a>
-                    <a href="{% url 'categorias:eliminar_categoria' categoria.id %}">
+                    <a data-toggle="modal" data-target="#compose-modal1">
                         <button class="btn btn-danger btn-sm">
                             <i class="fa fa-times"></i></i>
                         </button>
                     </a>
                 </div>
+                <div class="modal fade" id="compose-modal1" tabindex="-1" role="dialog" aria-hidden="true" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">¿Esta seguro que desea eliminar esta categoria?</h4>
+                                </div>
+                                
+                                    <div class="modal-footer clearfix">
+                
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancelar</button>
+                                        <a href="{% url 'categorias:eliminar_categoria' categoria.id %}">
+                                            <button type="submit" class="btn btn-primary pull-left"> Si, estoy seguro</button>
+                                        </a>    
+                                    </div>
+                                
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
             </div>
             <div class="box-body">
                 <div class="box">
@@ -51,13 +86,32 @@ Categorias
                                         <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
                                     </a>
                                     <!--Boton eliminar-->
-                                    <a href="{% url 'subcategorias:eliminar_subcategoria' subcategoria.id %}">
+                                    <a data-toggle="modal" data-target="#compose-modal">
                                         <button class="btn btn-danger btn-sm">
                                             <i class="fa fa-times"></i></i>
                                         </button>
                                     </a>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">¿Esta seguro que desea eliminar esta subcategoria?</h4>
+                                            </div>
+                                            
+                                                <div class="modal-footer clearfix">
+                            
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancelar</button>
+                                                    <a href="{% url 'subcategorias:eliminar_subcategoria' subcategoria.id %}">
+                                                        <button type="submit" class="btn btn-primary pull-left"> Si, estoy seguro</button>
+                                                    </a>    
+                                                </div>
+                                            
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                             {% endfor %}
 
                         </table>
@@ -70,6 +124,7 @@ Categorias
     {% endfor %}
 
 </div>
+
 <!--filas-->
 
 <!--widget-->

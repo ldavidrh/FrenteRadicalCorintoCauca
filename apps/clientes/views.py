@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth import login, logout
 from .models import Cliente
 from ..usuarios.models import Usuario
+from apps.categorias.models import Categoria
 
 
 # Create your views here.
@@ -40,6 +41,7 @@ def logout_view(request):
         return redirect('home')
     
 def perfil_view(request, numero_documento):
+    categorias = Categoria.objects.all()
     try:
         cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
     except  Cliente.DoesNotExist:
@@ -61,7 +63,7 @@ def perfil_view(request, numero_documento):
         else:
             form = FormularioModificarCliente(instance=cliente) 
             
-    return render(request, 'clientes/perfil.html', {'form':form, 'cliente': cliente})
+    return render(request, 'clientes/perfil.html', {'form':form, 'cliente': cliente, 'categorias': categorias})
 
 def change_password(request):
     if request.method=='POST':
@@ -82,12 +84,13 @@ def eliminarCuenta_view(request, numero_documento):
     if request.method == 'GET':
         usuario.is_active = 'f'
         usuario.save()
-        messages.success(request, 'Cuenta eliminado exitosamente')
+        messages.success(request, 'Cuenta eliminada exitosamente')
         return redirect('home')
 
 def consultarClientes_view(request):
+    categorias = Categoria.objects.all()
     clientes = Cliente.objects.filter(is_staff='f', is_superuser='f')
-    return render(request, 'clientes/consultar.html', {'clientes': clientes})
+    return render(request, 'clientes/consultar.html', {'clientes': clientes, 'categorias': categorias})
 
 def activarCliente_view(request, numero_documento):
     usuario = Usuario.objects.get(numero_documento=numero_documento)
