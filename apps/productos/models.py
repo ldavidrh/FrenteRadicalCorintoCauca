@@ -4,16 +4,16 @@ from django.db import models
 class Producto(models.Model):
     codigo = models.CharField(max_length=20, primary_key=True)
     nombre = models.CharField(max_length=50)
-    imagen = models.ImageField()
+    imagen = models.ImageField(null = True)
     fabricante = models.CharField(max_length=10)
     descripcion = models.TextField()
-    precio = models.DecimalField(decimal_places=2, max_digits=6)
+    precio = models.DecimalField(decimal_places=2, max_digits=10)
     iva = models.FloatField()
-    unidades = models.IntegerField()
-    activo = models.BooleanField(default = True)
     
-    codigo_subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
+    subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nombre
 
 def media_directory_path(instance, filename):
     model_name = instance.__class__.__name__

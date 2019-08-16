@@ -26,7 +26,7 @@ def consultar_almacenes_view(request):
 
 def modificar_almacen_view(request, id):
     categorias = Categoria.objects.all()
-    almacen = Almacen.objects.get(codigo = id)
+    almacen = Almacen.objects.get(id=id)
     if request.method == 'GET':
         form = FormularioCreacionAlmacen(instance = almacen)
     else:
@@ -38,3 +38,7 @@ def modificar_almacen_view(request, id):
 
     return render(request, 'almacenes/modificar.html', {'form': form, 'categorias': categorias})
 
+def eliminar_almacen_view(request, id):
+    almacen = Almacen.objects.filter(pk = id).delete()
+    messages.success(request, 'Almacen eliminado exitosamente')
+    return redirect('almacenes:consultar_almacenes')
