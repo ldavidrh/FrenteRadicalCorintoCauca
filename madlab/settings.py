@@ -77,7 +77,8 @@ INSTALLED_APPS = [
     'apps.productos_vendidos',
     'apps.pagos_credito',
     'apps.pagos_debito', 
-    'apps.descuentos'
+    'apps.descuentos',
+    'apps.inventario'
 ]
 
 MIDDLEWARE = [

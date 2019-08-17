@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+
+{% block titulo %}
+    Modificar almacen
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+    Modificar almacen
+{% endblock titulo_contenido%}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+        <a href="#">
+                <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+                <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+                {% for subcategoria in categoria.subcategorias.all %}
+                <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+                {% endfor %}
+        </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido%}
+    <form method="POST">
+        <div>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+        </div>
+        <div>
+            <button type="submit" >Modificar</button>
+        </div>
+    </form>
+{% endblock contenido%}
