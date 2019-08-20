@@ -19,7 +19,7 @@ from apps.pages import views
 
 from django.conf import settings
 from django.views.static import serve
-
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +32,4 @@ urlpatterns = [
     path('almacenes/', include('apps.almacenes.urls', namespace='almacenes')),
     path('inventario/', include('apps.inventario.urls', namespace='inventario')),
     path('descuentos/', include('apps.descuentos.urls', namespace = 'descuentos'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
