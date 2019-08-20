@@ -1,18 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
-<html >
+<html>
 
 <head>
     <meta charset="UTF-8">
-    
+
     <title>
         {% block titulo %}
 
         {% endblock titulo %}
     </title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'icon.png'%}"  />
+    <link rel="shortcut icon" type="image/png" href="{% static 'icon.png'%}" />
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <link href="font.css" rel="stylesheet" type="text/css"/>
+    <link href="font.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap 3.0.2 -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
@@ -44,7 +44,7 @@
     <!-- header logo: style can be found in header.less -->
     <header class="header">
         <a href="{% url 'home' %}" class="logo">
-            <image  src="{% static 'logo.png'%}" heigth="30" width="130"></image>
+            <image src="{% static 'logo.png'%}" heigth="30" width="130"></image>
             <!-- Add the class icon to your logo image or logo icon to add the margining -->
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -68,7 +68,7 @@
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
                                 <p>
-                                    {{ user.first_name }}  {{ user.last_name }}
+                                    {{ user.first_name }} {{ user.last_name }}
                                     <small>{{ user.email }}</small>
                                 </p>
                             </li>
@@ -97,8 +97,8 @@
                     <!-- CARRITO -->
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <image  src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
-                            
+                            <image src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
+
                             <span class="label label-warning">10</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -147,7 +147,7 @@
                                 <button class="btn btn-danger btn-sm">INICIAR SESION</button>
                             </a>
                         </div>
-                    </li> 
+                    </li>
                     <li>
                         <div class="pull-right" style="padding-top: 7%;">
                             <a href="{% url 'clientes:registro' %}">
@@ -165,7 +165,7 @@
         <aside class="left-side sidebar-offcanvas">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-                
+
                 {% if user.is_authenticated %}
                 <div class="user-panel">
                     <div class="pull-left info">
@@ -181,15 +181,15 @@
                 {% endif %}
                 <!-- search form -->
                 <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="seach" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
                 <!-- /.search form -->
                 <ul class="sidebar-menu">
                     {% if user.is_superuser or user.is_staff %}
@@ -200,24 +200,31 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i>Productos mas vendidos</a></li>
-                            <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>Clientes destacados</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Ventas por fecha</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Productos menos vendidos</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Ventas de un producto</a></li>
+                            <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i>Productos mas
+                                    vendidos</a></li>
+                            <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>Clientes
+                                    destacados</a></li>
+                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Ventas por
+                                    fecha</a></li>
+                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Productos
+                                    menos vendidos</a></li>
+                            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i>Ventas de un
+                                    producto</a></li>
                         </ul>
                     </li>
                     {% endif %}
                     {% if user.is_superuser %}
                     <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-male"></i> <span>Gestion de gerentes</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{% url 'gerentes:registro' %}"><i class="fa fa-angle-double-right"></i>Agregar gerente</a></li>
-                                <li><a href="{% url 'gerentes:consulta' %}"><i class="fa fa-angle-double-right"></i>Consultar gerentes</a></li>
-                            </ul>
+                        <a href="#">
+                            <i class="fa fa-male"></i> <span>Gestion de gerentes</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{% url 'gerentes:registro' %}"><i class="fa fa-angle-double-right"></i>Agregar
+                                    gerente</a></li>
+                            <li><a href="{% url 'gerentes:consulta' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar gerentes</a></li>
+                        </ul>
                     </li>
                     {% endif %}
                     {% if not user.is_superuser and user.is_staff %}
@@ -228,8 +235,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'categorias:crear_categoria'%}"><i class="fa fa-angle-double-right"></i>Agregar categoria</a></li>
-                            <li><a href="{% url 'categorias:consultar_categorias'%}"><i class="fa fa-angle-double-right"></i>Consultar categorias</a></li>
+                            <li><a href="{% url 'categorias:crear_categoria'%}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar categoria</a></li>
+                            <li><a href="{% url 'categorias:consultar_categorias'%}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar categorias</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -238,7 +247,8 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'subcategorias:crear_subcategoria'%}"><i class="fa fa-angle-double-right"></i>Agregar subcategoria</a></li>
+                            <li><a href="{% url 'subcategorias:crear_subcategoria'%}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar subcategoria</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -247,8 +257,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Agregar producto</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Consultar productos</a></li>
+                            <li><a href="{% url 'productos:registrar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar producto</a></li>
+                            <li><a href="{% url 'productos:consultar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar productos</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -257,34 +269,38 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
-                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
+                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
+                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-tags"></i> <span>Gestion de descuentos</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-group"></i> <span>Gestion de clientes</span>
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{% url 'clientes:consulta' %}"><i class="fa fa-angle-double-right"></i>Consultar clientes</a></li>
-                                </ul>
-                        </li>
-                        {% endif %}
-                        {% block barra%}
-                        {% endblock barra %}
-                        
-                    <li><a href="{%static 'pages/UI/icons.html' %}"><i class="fa fa-angle-double-right"></i> Icons</a></li>
+                        <a href="#">
+                            <i class="fa fa-tags"></i> <span>Gestion de descuentos</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-group"></i> <span>Gestion de clientes</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{% url 'clientes:consulta' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar clientes</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% block barra%}
+                    {% endblock barra %}
+
+                    <li><a href="{%static 'pages/UI/icons.html' %}"><i class="fa fa-angle-double-right"></i> Icons</a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -301,18 +317,18 @@
             </section>
 
             {% if messages %}
-                {% for message in messages %}
-                    <div class ="alert alert-{{ message.tags }} alert-dismissable">
-                        <i class="fa fa-check"></i>
-                        <button type="button"class= "close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{message}}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissable">
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{message}}
+            </div>
+            {% endfor %}
             {% endif %}
             <!-- Main content -->
             <section class="content">
                 {% block contenido %}
-                
+
                 {% endblock contenido %}
             </section><!-- /.content -->
         </aside><!-- /.right-side -->

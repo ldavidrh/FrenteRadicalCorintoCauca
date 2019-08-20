@@ -18,7 +18,7 @@
         </a>
         <ul class="treeview-menu">
                 {% for subcategoria in categoria.subcategorias.all %}
-                <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+                <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
                 {% endfor %}
         </ul>
 </li>
@@ -26,6 +26,7 @@
 {% endblock barra %}
 
 {% block contenido%}
+<div class="box box-primary"  style="padding: 10px">
     <form method="POST">
         <div>
             {% csrf_token %}
@@ -35,4 +36,5 @@
             <button type="submit" >Modificar</button>
         </div>
     </form>
+</div>
 {% endblock contenido%}

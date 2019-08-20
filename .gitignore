@@ -7,7 +7,6 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
 media
 
 ### VS code ###
@@ -23,6 +22,4 @@ media
 */migrations/
 
 madlab/secrets.json
-madlab/settings.py
 secrets.json
-settings.py

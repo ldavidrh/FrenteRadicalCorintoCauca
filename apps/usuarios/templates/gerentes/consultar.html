@@ -12,15 +12,15 @@ Gerentes
 {% block barra %}
 {% for categoria in categorias %}
 <li class="treeview">
-        <a href="#">
-                <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
-                <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-                {% for subcategoria in categoria.subcategorias.all %}
-                <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
-                {% endfor %}
-        </ul>
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
 </li>
 {% endfor %}
 {% endblock barra %}
@@ -38,31 +38,33 @@ Gerentes
                     <a href="{% url 'gerentes:modificar' gerente.numero_documento %}">
                         <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
                     </a>
-                    <a data-toggle="modal" data-target="#compose-modal">
+                    <a data-toggle="modal" data-target="#compose-modal_{{gerente.numero_documento}}">
                         <button class="btn btn-danger btn-sm">
                             <i class="fa fa-times"></i></i>
                         </button>
                     </a>
                 </div>
-                <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true" >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">¿Esta seguro que desea eliminar a este gerente?</h4>
-                                </div>
-                                
-                                    <div class="modal-footer clearfix">
-                
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancelar</button>
-                                        <a href="{% url 'gerentes:eliminar' gerente.numero_documento %}">
-                                            <button type="submit" class="btn btn-primary pull-left"> Si, estoy seguro</button>
-                                        </a>    
-                                    </div>
-                                
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+                <div class="modal fade" id="compose-modal_{{gerente.numero_documento}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">¿Esta seguro que desea eliminar a este gerente?</h4>
+                            </div>
+
+                            <div class="modal-footer clearfix">
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                        class="fa fa-times"></i>Cancelar</button>
+                                <a href="{% url 'gerentes:eliminar' gerente.numero_documento %}">
+                                    <button type="submit" class="btn btn-primary pull-left"> Si, estoy seguro</button>
+                                </a>
+                            </div>
+
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
             {% else %}
             <div class="box box-solid">
@@ -71,42 +73,44 @@ Gerentes
                     <div class="box-tools pull-right">
                         <a href="{% url 'gerentes:activar' gerente.numero_documento %}">
                             <button class="btn  btn-sm">
-                              Reactivar
-                                
+                                Reactivar
+
                             </button>
                         </a>
                     </div>
                 </div>
-            {% endif %}
-            <div class="box-body">
+                {% endif %}
+                <div class="box-body">
+                    <div class="contenido">
                         <h3 class="box-title">Información gerente</h3>
 
                         <div id="profile" class="tab-pane">
                             <div class="panel-body bio-graph-info">
-                              <div class="row">
-                                <div class="bio-row">
-                                <h4>E-mail : {{gerente.username}}</h4>
-                                </div>
-                                <div class="bio-row">
-                                  <h4>Fecha de nacimiento : {{gerente.fecha_nacimiento}} </h4>
-                                </div>
-                                <div class="bio-row">
-                                  <h4>Tipo de documento : {{gerente.tipo_documento}} </h4>
-                                </div>
-                                <div class="bio-row">
-                                  <h4>N° documento : {{gerente.numero_documento}} </h4>
+                                <div class="row">
+                                    <div class="bio-row">
+                                        <h4>E-mail : {{gerente.username}}</h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Fecha de nacimiento : {{gerente.fecha_nacimiento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Tipo de documento : {{gerente.tipo_documento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>N° documento : {{gerente.numero_documento}} </h4>
+                                    </div>
                                 </div>
                             </div>
-                          </div>
                         </div>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
-        <!--widgets-->
+                    </div><!-- /.box-body -->
+                </div>
+            </div><!-- /.box -->
+            <!--widgets-->
+        </div>
+        {% endfor %}
+
     </div>
-    {% endfor %}
+    <!--filas-->
 
-</div>
-<!--filas-->
-
-<!--widget-->
-{% endblock contenido%}
+    <!--widget-->
+    {% endblock contenido%}

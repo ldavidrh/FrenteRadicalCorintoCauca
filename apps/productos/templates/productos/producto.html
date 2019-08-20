@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+{{producto.nombre}}
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Información del producto
+{% endblock titulo_contenido%}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido%}
+<div class="box box-danger" style="padding: 10px">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <img src="{{ MEDIA_URL }}{{producto.imagen}}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h2>{{producto.nombre}}</h2>
+                <h1 class="page-header">by {{producto.fabricante}}</h1>
+                <h5>Categoria : {{producto.subcategoria.categoria.nombre}}</h5>
+                <h5>Subcategoria : {{producto.subcategoria.nombre}}</h5>
+                <h5>Codigo : {{producto.codigo}}</h5>
+                <h1 class="page-header"></h1>
+                <h4><b>$</b> {{producto.precio}}</h4>
+                <h5 class="text-muted"><b>IVA : </b> {{producto.iva}} %</h5>
+                <h4><b>Descripcion</b></h4>
+                <h4>{{producto.descripcion}}</h4>
+            </div>
+            <h1 class="page-header"></h1>
+            <div>
+                <button class="btn btn-warning btn-flat" data-toggle="modal" data-target="#compose-modal">Detalles del
+                    producto</button>
+            </div>
+            <div style="padding-top: 10px">
+                <button class="btn btn-danger btn-flat">Añadir al carrito</button>
+            </div>
+            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Detalles del producto</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock contenido%}
