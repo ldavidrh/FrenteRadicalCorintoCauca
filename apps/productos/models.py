@@ -10,7 +10,7 @@ class Producto(models.Model):
     precio = models.DecimalField(decimal_places=2, max_digits=10)
     iva = models.FloatField()
     
-    subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.SET_NULL)
+    subcategoria = models.ForeignKey('subcategorias.Subcategoria', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre

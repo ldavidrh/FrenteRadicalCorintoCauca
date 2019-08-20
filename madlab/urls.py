@@ -31,4 +31,5 @@ urlpatterns = [
     path('subcategorias/', include('apps.subcategorias.urls', namespace='subcategorias')),
     path('almacenes/', include('apps.almacenes.urls', namespace='almacenes')),
     path('inventario/', include('apps.inventario.urls', namespace='inventario')),
+    path('descuentos/', include('apps.descuentos.urls', namespace = 'descuentos'))
 ]
