@@ -25,7 +25,7 @@ def consultar_categorias_view(request):
 
 def eliminar_categoria_view(request, id):
     categorias = Categoria.objects.all()
-    Categoria.objects.filter(pk=id).delete()
+    Categoria.objects.filter(id=id).delete()
     messages.success(request, 'Categoria eliminada exitosamente')
     return redirect('categorias:consultar_categorias')
 
