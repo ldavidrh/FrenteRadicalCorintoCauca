@@ -6,6 +6,7 @@ from apps.categorias.models import Categoria
 
 # Create your views here.
 def registrar_view(request):
+    categorias = Categoria.objects.all().values()
     if request.method == 'POST':
         form = FormularioCreacionDescuento(request.POST)
         if form.is_valid():
@@ -15,7 +16,7 @@ def registrar_view(request):
     else:
         form = FormularioCreacionDescuento()
 
-    return render(request, 'descuentos/registro.html', {'form': form})
+    return render(request, 'descuentos/registro.html', {'form': form, 'categorias': categorias})
 
 
 def consultar_view(request):
