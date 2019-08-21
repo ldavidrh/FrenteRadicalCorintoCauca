@@ -41,6 +41,7 @@
 </head>
 
 <body class="skin-black">
+    
     <!-- header logo: style can be found in header.less -->
     <header class="header">
         <a href="{% url 'home' %}" class="logo">
@@ -55,7 +56,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+            
             <div class="navbar-right">
+                    
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
                     <!-- User Account: style can be found in dropdown.less -->
@@ -170,6 +173,21 @@
                 <div class="user-panel">
                     <div class="pull-left info">
                         <p>BIENVENIDO, {{ user.first_name }}</p>
+                        <h5>Usted está en BOGOTA</h5>
+                        <div class="btn-group">
+                                <button type="button" class="btn btn-default">Action</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
                     </div>
                 </div>
                 {% else %}

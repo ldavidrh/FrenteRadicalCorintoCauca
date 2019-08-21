@@ -29,8 +29,8 @@
 {% block contenido %}
 <!--filas donde se contendran 3 widgets-->
 <div class="box box-danger" style="padding: 10px">
-    <div class="row">
-        {% for producto in productos %}
+    {% for producto in productos %}
+    {% if forloop.first %}<div class="row">{% endif %}
         <div class="col-md-4">
             <div class="box box-solid box-danger">
                 <div class="box-header">
@@ -82,9 +82,11 @@
             </div><!-- /.box -->
             <!--widgets-->
         </div>
-        {% endfor %}
+        {% if forloop.counter|divisibleby:3 %}</div>
+    <div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
 
-    </div>
+    {% endfor %}
     <!--filas-->
 
     <!--widget-->

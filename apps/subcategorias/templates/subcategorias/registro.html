@@ -18,7 +18,7 @@ Registrar Subcategoria
     </a>
     <ul class="treeview-menu">
         {% for subcategoria in categoria.subcategorias.all %}
-        <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
         {% endfor %}
     </ul>
 </li>
