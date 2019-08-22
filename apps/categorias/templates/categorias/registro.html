@@ -17,8 +17,11 @@ Registrar categoria
         <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
         {% for subcategoria in categoria.subcategorias.all %}
-        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
         {% endfor %}
     </ul>
 </li>
@@ -26,7 +29,7 @@ Registrar categoria
 {% endblock barra %}
 
 {% block contenido%}
-<div class="box box-primary" style="padding: 10px">
+<div class="box box-danger" style="padding: 10px">
     <form method="POST">
         <div>
             {% csrf_token %}

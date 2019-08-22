@@ -1,23 +1,28 @@
 from django.shortcuts import render, redirect
-from .forms import FormularioRegistroProducto, FormularioModificarProducto
+from .forms import FormularioRegistroProducto, FormularioModificarProducto, FormularioRegistroDetail
 from django.contrib import messages
 from .models import Producto
+from .models import Detalle
 from apps.categorias.models import Categoria
 from apps.subcategorias.models import Subcategoria
+from django.forms import modelformset_factory
 
 # Create your views here.
 def registrar_view(request):
     categorias = Categoria.objects.all()
     if request.method == 'POST':
         form = FormularioRegistroProducto(request.POST, request.FILES)
-        if form.is_valid():
+        detail_form = FormularioRegistroDetail(request.POST)
+        if form.is_valid() and detail_form.is_valid():
             form.save()
+            detail_form.save(False)
             messages.success(request, 'Producto registrado exitosamente')
             return redirect('productos:registrar')
     else:
         form = FormularioRegistroProducto()
+        detail_form = FormularioRegistroDetail()
 
-    return render(request, 'productos/registro.html', {'form': form, 'categorias': categorias})
+    return render(request, 'productos/registro.html', {'form': form,'detail_form': detail_form, 'categorias': categorias})
 
 def consultarProdutos_view(request):
     categorias = Categoria.objects.all()
@@ -27,8 +32,12 @@ def consultarProdutos_view(request):
 def consultarPorSubcategoria_view(request, subcategoria_id):
     categorias = Categoria.objects.all()
     productos = Producto.objects.filter(subcategoria_id = subcategoria_id)
-    subcategoria = Subcategoria.objects.get(id=subcategoria_id)
-    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'subcategoria': subcategoria})
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias})
+
+def consultarPorCategoria_view(request, categoria_id):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.filter(subcategoria__categoria__id = categoria_id)
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias})
 
 def modificarProductos_view(request, codigo):
     categorias = Categoria.objects.all()

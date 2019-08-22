@@ -17,6 +17,8 @@ Información del producto
         <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
         {% for subcategoria in categoria.subcategorias.all %}
         <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
                     class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
@@ -52,11 +54,30 @@ Información del producto
                 <button class="btn btn-warning btn-flat" data-toggle="modal" data-target="#compose-modal">Detalles del
                     producto</button>
             </div>
+            {% if user.is_authenticated%}
+            {% if not user.is_superuser and user.is_staff%}
             <div style="padding-top: 10px">
-                <button class="btn btn-danger btn-flat">Añadir al carrito</button>
+                <button class="btn btn-danger btn-flat ">Añadir al carrito</button>
             </div>
-            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog"
-                aria-hidden="true">
+            {% elif user.is_superuser %}
+            <div style="padding-top: 10px">
+                <button class="btn btn-danger btn-flat ">Añadir al carrito</button>
+            </div>
+            {% else %}
+            <div style="padding-top: 10px">
+                <a href="#">
+                    <button class="btn btn-danger btn-flat">Añadir al carrito</button>
+                </a>
+            </div>
+            {% endif %}
+            {% else %}
+            <div style="padding-top: 10px">
+                <a href="{% url 'clientes:registro' %}">
+                    <button class="btn btn-danger btn-flat">Añadir al carrito</button>
+                </a>
+            </div>
+            {% endif %}
+            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

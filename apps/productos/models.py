@@ -16,6 +16,10 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+class Detalle(models.Model):
+    detalle = models.CharField(max_length=100)
+    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+
 
 def media_directory_path(instance, filename):
     model_name = instance.__class__.__name__

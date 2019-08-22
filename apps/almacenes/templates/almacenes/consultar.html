@@ -17,8 +17,11 @@ Almacenes
         <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
         {% for subcategoria in categoria.subcategorias.all %}
-        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
         {% endfor %}
     </ul>
 </li>
@@ -27,9 +30,9 @@ Almacenes
 
 {% block contenido %}
 <!--filas donde se contendran 3 widgets-->
-<div class="box box-primary" style="padding: 10px">
-    <div class="row">
-        {% for almacen in almacenes %}
+<div class="box box-danger" style="padding: 10px">
+    {% for almacen in almacenes %}
+    {% if forloop.first %}<div class="row">{% endif %}
         <div class="col-md-4">
             <div class="box box-solid box-danger">
                 <div class="box-header">
@@ -44,7 +47,8 @@ Almacenes
                             </button>
                         </a>
                     </div>
-                    <div class="modal fade" id="compose-modal_{{almacen.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="compose-modal_{{almacen.id}}" tabindex="-1" role="dialog"
+                        aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -76,9 +80,11 @@ Almacenes
             </div><!-- /.box -->
             <!--widgets-->
         </div>
-        {% endfor %}
+        {% if forloop.counter|divisibleby:3 %}</div>
+    <div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
 
-    </div>
+    {% endfor %}
     <!--filas-->
 
     <!--widget-->

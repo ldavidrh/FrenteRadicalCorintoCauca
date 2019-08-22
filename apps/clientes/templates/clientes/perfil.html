@@ -13,129 +13,134 @@ Mi perfil
 {% block barra %}
 {% for categoria in categorias %}
 <li class="treeview">
-        <a href="#">
-                <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
-                <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-                {% for subcategoria in categoria.subcategorias.all %}
-                <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
-                {% endfor %}
-        </ul>
+  <a href="#">
+    <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+    <i class="fa fa-angle-left pull-right"></i>
+  </a>
+  <ul class="treeview-menu">
+    <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i class="fa fa-angle-double-right"></i>Ver
+        todos</a></li>
+    {% for subcategoria in categoria.subcategorias.all %}
+    <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+          class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+    {% endfor %}
+  </ul>
 </li>
 {% endfor %}
 {% endblock barra %}
 
 {% block contenido %}
-    <div class='row'>
-        <div class='col-xs-12'>
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#fa-icons" data-toggle="tab">Mis datos</a></li>
-                    <li><a href="#glyphicons" data-toggle="tab">Editar perfil</a></li>                                        
-                </ul>
-                <div class="tab-content">
-                    <!-- Font Awesome icons -->
-                    <div class="tab-pane active" id="fa-icons" >
-                        <section id="new">
-                            <h4 class="page-header">Información de cuenta</h4>
+<div class='row'>
+  <div class='col-xs-12'>
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#fa-icons" data-toggle="tab">Mis datos</a></li>
+        <li><a href="#glyphicons" data-toggle="tab">Editar perfil</a></li>
+      </ul>
+      <div class="tab-content">
+        <!-- Font Awesome icons -->
+        <div class="tab-pane active" id="fa-icons">
+          <section id="new">
+            <h4 class="page-header">Información de cuenta</h4>
 
-                            <div id="profile" class="tab-pane">
-                                <div class="panel-body bio-graph-info">
-                                  <div class="row">
-                                    <div class="bio-row">
-                                      <h4>Nombre : {{user.first_name}} {{user.last_name}}</h4>
-                                    </div>
-                                    <div class="bio-row">
-                                      <h4>E-mail : {{user.email}}</h4>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+            <div id="profile" class="tab-pane">
+              <div class="panel-body bio-graph-info">
+                <div class="row">
+                  <div class="bio-row">
+                    <h4>Nombre : {{user.first_name}} {{user.last_name}}</h4>
+                  </div>
+                  <div class="bio-row">
+                    <h4>E-mail : {{user.email}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                        </section>
+          </section>
 
-                        <section id="web-application">
-                            <h4 class="page-header">Información personal</h4>
+          <section id="web-application">
+            <h4 class="page-header">Información personal</h4>
 
-                            <div id="profile" class="tab-pane">
-                                <div class="panel-body bio-graph-info">
-                                  <div class="row">
-                                    <div class="bio-row">
-                                      <h4>Fecha de nacimiento : {{user.fecha_nacimiento}} </h4>
-                                    </div>
-                                    <div class="bio-row">
-                                      <h4>Tipo de documento : {{user.tipo_documento}} </h4>
-                                    </div>
-                                    <div class="bio-row">
-                                      <h4>N° documento : {{user.numero_documento}} </h4>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                        </section>
-                        {% if not user.is_staff %}
-                        <section id="form-control">
-                            <h4 class="page-header">Información cliente</h4>
-                            
-                            <div id="profile" class="tab-pane">
-                                <div class="panel-body bio-graph-info">
-                                  <div class="row">
-                                    <div class="bio-row">
-                                      <h4>N° telefonico : {{cliente.telefono}} </h4>
-                                    </div>
-                                    <div class="bio-row">
-                                      <h4>Direccion : {{cliente.direccion}} </h4>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                        </section>
-                        {% endif %}
+            <div id="profile" class="tab-pane">
+              <div class="panel-body bio-graph-info">
+                <div class="row">
+                  <div class="bio-row">
+                    <h4>Fecha de nacimiento : {{user.fecha_nacimiento}} </h4>
+                  </div>
+                  <div class="bio-row">
+                    <h4>Tipo de documento : {{user.tipo_documento}} </h4>
+                  </div>
+                  <div class="bio-row">
+                    <h4>N° documento : {{user.numero_documento}} </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {% if not user.is_staff %}
+          <section id="form-control">
+            <h4 class="page-header">Información cliente</h4>
 
-                    </div><!-- /#fa-icons -->
-                    <!-- glyphicons-->
-                    <div class="tab-pane" id="glyphicons">
-                        <form method="POST">
-                            <div>
-                                {% csrf_token %}
-                                {% bootstrap_form form %}
-                            </div>
-                            <div>
-                                <button class="btn btn-primary" type="submit" >Guardar cambios</button>
-                                <a class="btn btn-info" href="{% url 'clientes:change_password' %}">Cambiar contraseña</a>
-                                
-                                <a class="btn btn-danger" data-toggle="modal" data-target="#compose-modal">
-                                  Eliminar cuenta
-                                </a>
-                                
-                            </div>
-                            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title">¿Esta seguro que desea eliminar su cuenta?</h4>
-                                        </div>
-                                        
-                                            <div class="modal-footer clearfix">
-                        
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>Cancelar</button>
-                                                <a class="btn btn-primary pull-left" href="{% url 'clientes:eliminar-cuenta' user.numero_documento %}">
-                                                  Si, estoy seguro
-                                                </a>    
-                                            </div>
-                                        
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div><!-- /.modal -->
-                            
-                        </form>
-                    </div><!-- /#ion-icons -->
+            <div id="profile" class="tab-pane">
+              <div class="panel-body bio-graph-info">
+                <div class="row">
+                  <div class="bio-row">
+                    <h4>N° telefonico : {{cliente.telefono}} </h4>
+                  </div>
+                  <div class="bio-row">
+                    <h4>Direccion : {{cliente.direccion}} </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {% endif %}
 
-                </div><!-- /.tab-content -->
-            </div><!-- /.nav-tabs-custom -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+        </div><!-- /#fa-icons -->
+        <!-- glyphicons-->
+        <div class="tab-pane" id="glyphicons">
+          <form method="POST">
+            <div>
+              {% csrf_token %}
+              {% bootstrap_form form %}
+            </div>
+            <div>
+              <button class="btn btn-primary" type="submit">Guardar cambios</button>
+              <a class="btn btn-info" href="{% url 'clientes:change_password' %}">Cambiar contraseña</a>
+
+              <a class="btn btn-danger" data-toggle="modal" data-target="#compose-modal">
+                Eliminar cuenta
+              </a>
+
+            </div>
+            <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">¿Esta seguro que desea eliminar su cuenta?</h4>
+                  </div>
+
+                  <div class="modal-footer clearfix">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        class="fa fa-times"></i>Cancelar</button>
+                    <a class="btn btn-primary pull-left"
+                      href="{% url 'clientes:eliminar-cuenta' user.numero_documento %}">
+                      Si, estoy seguro
+                    </a>
+                  </div>
+
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+          </form>
+        </div><!-- /#ion-icons -->
+
+      </div><!-- /.tab-content -->
+    </div><!-- /.nav-tabs-custom -->
+  </div><!-- /.col -->
+</div><!-- /.row -->
 
 {% endblock contenido %}

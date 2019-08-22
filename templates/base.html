@@ -41,7 +41,7 @@
 </head>
 
 <body class="skin-black">
-    
+
     <!-- header logo: style can be found in header.less -->
     <header class="header">
         <a href="{% url 'home' %}" class="logo">
@@ -56,9 +56,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            
+
             <div class="navbar-right">
-                    
+
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
                     <!-- User Account: style can be found in dropdown.less -->
@@ -173,21 +173,8 @@
                 <div class="user-panel">
                     <div class="pull-left info">
                         <p>BIENVENIDO, {{ user.first_name }}</p>
-                        <h5>Usted está en BOGOTA</h5>
-                        <div class="btn-group">
-                                <button type="button" class="btn btn-default">Action</button>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
+                        {% block ciudad %}
+                        {% endblock ciudad %}
                     </div>
                 </div>
                 {% else %}
@@ -287,8 +274,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
-                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
+                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
+                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -297,8 +286,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'descuentos:registrar' %}"><i class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
-                            <li><a href="{% url 'descuentos:consultar' %}"><i class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
+                            <li><a href="{% url 'descuentos:registrar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
+                            <li><a href="{% url 'descuentos:consultar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
