@@ -12,17 +12,21 @@ def registrar_view(request):
     categorias = Categoria.objects.all()
     if request.method == 'POST':
         form = FormularioRegistroProducto(request.POST, request.FILES)
-        detail_form = FormularioRegistroDetail(request.POST)
-        if form.is_valid() and detail_form.is_valid():
-            form.save()
-            detail_form.save(False)
+        detalle_form = FormularioRegistroDetail(request.POST)
+        if form.is_valid() and detalle_form.is_valid():
+            producto = form.save()
+            detalle = detalle_form.save(False)
+
+            detalle.producto=producto
+            detalle.save()
+
             messages.success(request, 'Producto registrado exitosamente')
             return redirect('productos:registrar')
     else:
         form = FormularioRegistroProducto()
-        detail_form = FormularioRegistroDetail()
+        detalle_form = FormularioRegistroDetail()
 
-    return render(request, 'productos/registro.html', {'form': form,'detail_form': detail_form, 'categorias': categorias})
+    return render(request, 'productos/registro.html', {'form': form,'detalle_form': detalle_form, 'categorias': categorias})
 
 def consultarProdutos_view(request):
     categorias = Categoria.objects.all()
@@ -61,6 +65,20 @@ def eliminarProducto_view(request, codigo):
 def consultarProducto_view(request, codigo):
     categorias = Categoria.objects.all()
     producto = Producto.objects.get(codigo=codigo)
-    return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias})
+    if request.method == 'POST':
+        detalle_form = FormularioRegistroDetail(request.POST)
+        if detalle_form.is_valid():
+            detalle = detalle_form.save(commit = False)
+            detalle.producto = producto
+            detalle.save()
+    else:
+        detalle_form = FormularioRegistroDetail()
 
+    return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias, 'detalle_form': detalle_form})
+
+def eliminarDetalle_view(request, id):
+    detalle = Detalle.objects.get(pk=id)
+    producto = detalle.producto.codigo
+    Detalle.objects.filter(pk=id).delete()
+    return redirect('productos:consultarProducto', producto)
 
