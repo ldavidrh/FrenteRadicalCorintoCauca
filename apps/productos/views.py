@@ -6,6 +6,7 @@ from .models import Detalle
 from apps.categorias.models import Categoria
 from apps.subcategorias.models import Subcategoria
 from django.forms import modelformset_factory
+from apps.carritos.models import Carrito
 
 # Create your views here.
 def registrar_view(request):
@@ -31,17 +32,38 @@ def registrar_view(request):
 def consultarProdutos_view(request):
     categorias = Categoria.objects.all()
     productos = Producto.objects.all()
-    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias})
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+        
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
 def consultarPorSubcategoria_view(request, subcategoria_id):
     categorias = Categoria.objects.all()
     productos = Producto.objects.filter(subcategoria_id = subcategoria_id)
-    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias})
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
 def consultarPorCategoria_view(request, categoria_id):
     categorias = Categoria.objects.all()
     productos = Producto.objects.filter(subcategoria__categoria__id = categoria_id)
-    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias})
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
 def modificarProductos_view(request, codigo):
     categorias = Categoria.objects.all()
@@ -65,6 +87,13 @@ def eliminarProducto_view(request, codigo):
 def consultarProducto_view(request, codigo):
     categorias = Categoria.objects.all()
     producto = Producto.objects.get(codigo=codigo)
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+
     if request.method == 'POST':
         detalle_form = FormularioRegistroDetail(request.POST)
         if detalle_form.is_valid():
@@ -74,7 +103,7 @@ def consultarProducto_view(request, codigo):
     else:
         detalle_form = FormularioRegistroDetail()
 
-    return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias, 'detalle_form': detalle_form})
+    return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias, 'detalle_form': detalle_form, 'carritos':carritos})
 
 def eliminarDetalle_view(request, id):
     detalle = Detalle.objects.get(pk=id)

@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% load static %}
 {% load bootstrap4 %}
 
 {% block titulo%}
@@ -10,51 +11,41 @@ Bienvenido a MadLab
 {% endblock titulo_contenido%}
 
 {% block carrito %}
-<li class="dropdown notifications-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <image src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
+<li class="dropdown messages-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <image src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
 
-                <span class="label label-warning">10</span>
-        </a>
-        <ul class="dropdown-menu">
-                <li class="header">Tienes *numero* producto(s) en tu carrito</li>
+        <span class="label label-warning">{{ carritos|length }}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header" style="color: black"><b>Tienes {{ carritos|length }} producto(s) en tu carrito</b>
+        </li>
+        <li>
+            <!-- inner menu: contains the actual data -->
+            <ul class="menu">
+                {% for carrito in carritos %}
                 <li>
-                        <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
-                                <li>
-                                        <a href="#">
-                                                <i class="ion ion-ios7-people info"></i> 5 new members joined today
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#">
-                                                <i class="fa fa-warning danger"></i> Very long description here that may
-                                                not
-                                                fit into the page and may cause design problems
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#">
-                                                <i class="fa fa-users warning"></i> 5 new members joined
-                                        </a>
-                                </li>
+                    <a href="{% url 'productos:consultarProducto' carrito.producto.codigo %}" style="color: black">
+                        <div class="pull-left">
+                            <img src="{{ MEDIA_URL }}{{carrito.producto.imagen}}" width="75px">
+                        </div>
+                        <h4 style="color: black">{{ carrito.producto.nombre }}</h4>
+                        <p id="precio" type="number">
+                            $ {{ carrito.producto.precio }}
+                        </p>
+                        <p id="cantidad" type="number">
+                            Cantidad : {{ carrito.cantidad }}
+                        </p>
+                    </a>
 
-                                <li>
-                                        <a href="#">
-                                                <i class="ion ion-ios7-cart success"></i> 25 sales made
-                                        </a>
-                                </li>
-                                <li>
-                                        <a href="#">
-                                                <i class="ion ion-ios7-person danger"></i> You changed your username
-                                        </a>
-                                </li>
-                        </ul>
                 </li>
-                <li class="footer"><a href="#">Ir al carrito</a></li>
-        </ul>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="footer"><a href="#" style="color: black">Ir al carrito</a></li>
+    </ul>
 </li>
-{% endif %}
+{% endblock carrito %}
 
 {% block ciudad %}
 <h5><i class="fa fa-map-marker"></i> Usted está en BOGOTA</h5>
@@ -109,8 +100,10 @@ Bienvenido a MadLab
                                                 <button class="btn btn-danger disabled"><i
                                                                 class="fa fa-shopping-cart"></i></button>
                                                 {% else %}
-                                                <button class="btn btn-danger btn-sm"><i
-                                                                class="fa fa-shopping-cart"></i></button>
+                                                <a href="{% url 'carritos:addToCart' producto.codigo %}">
+                                                        <button class="btn btn-danger btn-sm"><i
+                                                                        class="fa fa-shopping-cart"></i></button>
+                                                </a>
                                                 {% endif %}
                                                 {% else %}
                                                 <a href="{% url 'clientes:registro' %}">
