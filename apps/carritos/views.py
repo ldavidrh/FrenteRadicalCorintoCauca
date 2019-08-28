@@ -12,8 +12,8 @@ def addToCart_view(request, codigo):
     cliente = request.user
     producto_exist = (Carrito.objects.filter(cliente = cliente, producto = producto).count() > 0)
     if producto_exist:
-        messages.success(request, 'El producto ya se encuentra en el carrito')
-        return redirect('home')
+        messages.warning(request, 'El producto ya se encuentra en el carrito')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         carrito = Carrito()
         carrito.cantidad = 1
@@ -21,7 +21,7 @@ def addToCart_view(request, codigo):
         carrito.cliente = cliente
         carrito.save()
         messages.success(request, 'Producto añadido exitosamente')
-        return redirect('home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def consultarCarrito_view(request):
     categorias = Categoria.objects.all()

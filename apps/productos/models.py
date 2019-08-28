@@ -9,6 +9,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(decimal_places=2, max_digits=10)
     iva = models.FloatField(default=19.0)
+    oferta = models.DecimalField(decimal_places=2, max_digits=10, default = 0.00)
 
     subcategoria = models.ForeignKey(
         'subcategorias.Subcategoria', on_delete=models.SET_NULL, null=True)

@@ -129,7 +129,11 @@ Productos
                     <div class="contenido">
                         <h5 class="text-muted">{{producto.subcategoria.nombre}}</h5>
                         <h4 class="box-title">{{producto.nombre}}</h4>
-                        <div><b>$</b> {{producto.precio}}</div>
+                        {% if producto.oferta == producto.precio %}
+                        <div><b>$</b> {{producto.oferta}} </div>
+                        {% else %}
+                        <div><b>$</b> <strike>{{producto.precio}}</strike> {{producto.oferta}}</div>
+                        {% endif %}
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->

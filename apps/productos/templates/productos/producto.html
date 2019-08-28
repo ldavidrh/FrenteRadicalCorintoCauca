@@ -103,7 +103,7 @@ Información del producto
             </div>
             {% else %}
             <div style="padding-top: 10px">
-                <a href="#">
+                <a href="{% url 'carritos:addToCart' producto.codigo %}">
                     <button class="btn btn-danger btn-flat">Añadir al carrito</button>
                 </a>
             </div>

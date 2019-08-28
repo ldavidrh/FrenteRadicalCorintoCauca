@@ -107,10 +107,11 @@ Mi perfil
             <div>
               <button class="btn btn-primary" type="submit">Guardar cambios</button>
               <a class="btn btn-info" href="{% url 'clientes:change_password' %}">Cambiar contraseña</a>
-
+              {% if not user.is_staff %}
               <a class="btn btn-danger" data-toggle="modal" data-target="#compose-modal">
                 Eliminar cuenta
               </a>
+              {% endif %}
 
             </div>
             <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog" aria-hidden="true">

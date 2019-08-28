@@ -70,62 +70,86 @@ Clientes
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                 </div>
-                {% else %}
-                <div class="box box-solid">
-                    <div class="box-header">
-                        <h3 class="box-title">{{cliente.first_name}} {{cliente.last_name}}</h3>
-                        <div class="box-tools pull-right">
-                            <a href="{% url 'clientes:activar-cuenta' cliente.numero_documento %}">
-                                <button class="btn  btn-sm">
-                                    Reactivar
+                <div class="box-body">
+                    <div class="contenido">
+                        <h3 class="box-title">Información cliente</h3>
 
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="box-body">
-                        <div class="contenido">
-                            <h3 class="box-title">Información cliente</h3>
-
-                            <div id="profile" class="tab-pane">
-                                <div class="panel-body bio-graph-info">
-                                    <div class="row">
-                                        <div class="bio-row">
-                                            <h4>E-mail : {{cliente.username}}</h4>
-                                        </div>
-                                        <div class="bio-row">
-                                            <h4>Fecha de nacimiento : {{cliente.fecha_nacimiento}} </h4>
-                                        </div>
-                                        <div class="bio-row">
-                                            <h4>Tipo de documento : {{cliente.tipo_documento}} </h4>
-                                        </div>
-                                        <div class="bio-row">
-                                            <h4>N° documento : {{cliente.numero_documento}} </h4>
-                                        </div>
-                                        <div class="bio-row">
-                                            <h4>N° Telefonico : {{cliente.telefono}} </h4>
-                                        </div>
-                                        <div class="bio-row">
-                                            <h4>Direccion : {{cliente.direccion}} </h4>
-                                        </div>
+                        <div id="profile" class="tab-pane">
+                            <div class="panel-body bio-graph-info">
+                                <div class="row">
+                                    <div class="bio-row">
+                                        <h4>E-mail : {{cliente.username}}</h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Fecha de nacimiento : {{cliente.fecha_nacimiento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Tipo de documento : {{cliente.tipo_documento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>N° documento : {{cliente.numero_documento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>N° Telefonico : {{cliente.telefono}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Direccion : {{cliente.direccion}} </h4>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- /.box-body -->
+                        </div>
                     </div>
-                </div><!-- /.box -->
-                <!--widgets-->
-
+                </div>
             </div>
+            {% else %}
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">{{cliente.first_name}} {{cliente.last_name}}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="{% url 'clientes:activar-cuenta' cliente.numero_documento %}">
+                            <button class="btn  btn-sm">
+                                Reactivar
+
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="contenido">
+                        <h3 class="box-title">Información cliente</h3>
+
+                        <div id="profile" class="tab-pane">
+                            <div class="panel-body bio-graph-info">
+                                <div class="row">
+                                    <div class="bio-row">
+                                        <h4>E-mail : {{cliente.username}}</h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Fecha de nacimiento : {{cliente.fecha_nacimiento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Tipo de documento : {{cliente.tipo_documento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>N° documento : {{cliente.numero_documento}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>N° Telefonico : {{cliente.telefono}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <h4>Direccion : {{cliente.direccion}} </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
         {% if forloop.counter|divisibleby:3 %}</div>
     <div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
-
     {% endfor %}
 </div>
-<!--filas-->
-
-<!--widget-->
 {% endblock contenido%}

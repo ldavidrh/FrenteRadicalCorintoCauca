@@ -7,6 +7,7 @@ from apps.categorias.models import Categoria
 from apps.subcategorias.models import Subcategoria
 from django.forms import modelformset_factory
 from apps.carritos.models import Carrito
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def registrar_view(request):
@@ -15,6 +16,8 @@ def registrar_view(request):
         form = FormularioRegistroProducto(request.POST, request.FILES)
         detalle_form = FormularioRegistroDetail(request.POST)
         if form.is_valid() and detalle_form.is_valid():
+            producto = form.save(commit = False)
+            producto.oferta = producto.precio
             producto = form.save()
             detalle = detalle_form.save(False)
 
@@ -100,6 +103,7 @@ def consultarProducto_view(request, codigo):
             detalle = detalle_form.save(commit = False)
             detalle.producto = producto
             detalle.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         detalle_form = FormularioRegistroDetail()
 
