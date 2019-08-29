@@ -12,7 +12,6 @@
     </title>
     <link rel="shortcut icon" type="image/png" href="{% static 'icon.png'%}" />
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <link href="font.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap 3.0.2 -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
@@ -41,7 +40,7 @@
 </head>
 
 <body class="skin-black">
-    
+
     <!-- header logo: style can be found in header.less -->
     <header class="header">
         <a href="{% url 'home' %}" class="logo">
@@ -56,11 +55,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            
+
             <div class="navbar-right">
-                    
+
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
+                    <!-- CARRITO -->
+                    {% if not user.is_staff and not user.is_superuser %}
+                    {% block carrito %}
+
+                    {% endblock carrito %}
+                    {% endif %}
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -97,50 +102,7 @@
                     <!-- GERENTE -->
                     {% else %}
                     <!-- CLIENTE -->
-                    <!-- CARRITO -->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <image src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
 
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">Tienes *numero* producto(s) en tu carrito</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="ion ion-ios7-people info"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning danger"></i> Very long description here that may not
-                                            fit into the page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users warning"></i> 5 new members joined
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="ion ion-ios7-cart success"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ion ion-ios7-person danger"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">Ir al carrito</a></li>
-                        </ul>
-                    </li>
                     {% endif %}
                     {% else %}
                     <!-- INVITADO -->
@@ -173,21 +135,8 @@
                 <div class="user-panel">
                     <div class="pull-left info">
                         <p>BIENVENIDO, {{ user.first_name }}</p>
-                        <h5>Usted está en BOGOTA</h5>
-                        <div class="btn-group">
-                                <button type="button" class="btn btn-default">Action</button>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
+                        {% block ciudad %}
+                        {% endblock ciudad %}
                     </div>
                 </div>
                 {% else %}
@@ -287,8 +236,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
-                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
+                            <li><a href="{% url 'almacenes:crear_almacen' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar almacen</a></li>
+                            <li><a href="{% url 'almacenes:consultar_almacenes' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar almacenes</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -297,8 +248,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{% url 'descuentos:registrar' %}"><i class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
-                            <li><a href="{% url 'descuentos:consultar' %}"><i class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
+                            <li><a href="{% url 'descuentos:registrar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Agregar descuento</a></li>
+                            <li><a href="{% url 'descuentos:consultar' %}"><i
+                                        class="fa fa-angle-double-right"></i>Consultar descuentos</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

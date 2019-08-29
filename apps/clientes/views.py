@@ -85,7 +85,11 @@ def eliminarCuenta_view(request, numero_documento):
         usuario.is_active = 'f'
         usuario.save()
         messages.success(request, 'Cuenta eliminada exitosamente')
-        return redirect('home')
+        usuario = request.user
+        if usuario.is_staff:
+            return redirect('clientes:consulta')
+        else:
+            return redirect('home')
 
 def consultarClientes_view(request):
     categorias = Categoria.objects.all()

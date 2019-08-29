@@ -19,10 +19,6 @@ def crear_subcategoria_view(request):
     return render(request, 'subcategorias/registro.html', {'form':form, 'categorias': categorias})
 
 
-def consultar_subcategorias_view(request):
-    subcategorias = Subcategoria.objects.all().values()
-    return render(request, 'subcategorias/consultar.html', {'subcategorias': subcategorias})
-
 def eliminar_subcategoria_view(request, id):
     subcategoria = Subcategoria.objects.filter(pk = id).delete()
     messages.success(request, 'Subcategoria eliminada exitosamente')

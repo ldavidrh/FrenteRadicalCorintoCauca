@@ -17,8 +17,11 @@ Registrar descuento
         <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
         {% for subcategoria in categoria.subcategorias.all %}
-        <li><a href="#"><i class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
         {% endfor %}
     </ul>
 </li>
@@ -27,14 +30,14 @@ Registrar descuento
 
 {% block contenido%}
 <div class="box box-danger" style="padding:10px">
-<form method="POST">
-    <div>
-        {% csrf_token %}
-        {% bootstrap_form form %}
-    </div>
-    <div>
-        <button type="submit">Agregar</button>
-    </div>
-</form>
+    <form method="POST">
+        <div>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+        </div>
+        <div>
+            <button type="submit">Agregar</button>
+        </div>
+    </form>
 </div>
 {% endblock contenido%}
