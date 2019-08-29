@@ -39,13 +39,13 @@ Descuentos
                         <a href="{% url 'descuentos:modificar' descuento.id %}">
                             <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
                         </a>
-                        <a data-toggle="modal" data-target="#compose-modal1">
+                        <a data-toggle="modal" data-target="#compose-modal_{{descuento.id}}">
                             <button class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i></i>
                             </button>
                         </a>
                     </div>
-                    <div class="modal fade" id="compose-modal1" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="compose-modal_{{descuento.id}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -58,7 +58,7 @@ Descuentos
 
                                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i
                                             class="fa fa-times"></i>Cancelar</button>
-                                    <a href="#">
+                                    <a href="{% url 'descuentos:eliminar' descuento.id %}">
                                         <button type="submit" class="btn btn-primary pull-left"> Si, estoy
                                             seguro</button>
                                     </a>

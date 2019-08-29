@@ -38,3 +38,7 @@ def modificar_view(request, id):
         return redirect('descuentos:consultar')
     
     return render(request, 'descuentos/modificar.html', {'form':form, 'categorias':categorias})
+
+def eliminar_view(request, id):
+    descuento = Descuento.objects.filter(pk=id).delete()
+    return redirect('descuentos:consultar')
