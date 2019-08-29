@@ -19,6 +19,5 @@ __pycache__/
 ## Migrations ##
 */*/migrations/
 */migrations/
-
-madlab/secrets.json
+*/secrets.json
 secrets.json
