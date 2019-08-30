@@ -73,7 +73,11 @@ Productos
     {% if forloop.first %}<div class="row">{% endif %}
         <div class="col-md-4">
             <div class="box box-solid box-danger">
+                    
                 <div class="box-header">
+                    {% for descuento in producto.descuentos.all %}
+                    <h3 class="box-title"> - {{descuento.porcentaje}}%</h3>
+                    {% endfor %}
                     <div class="box-tools pull-right">
                         {% if user.is_authenticated%}
                         {% if not user.is_superuser and user.is_staff%}
@@ -125,7 +129,9 @@ Productos
                 <div class="box-body">
                     <a href="{% url 'productos:consultarProducto' producto.codigo %}">
                         <img src="{{ MEDIA_URL }}{{producto.imagen}}">
+
                     </a>
+
                     <div class="contenido">
                         <h5 class="text-muted">{{producto.subcategoria.nombre}}</h5>
                         <h4 class="box-title">{{producto.nombre}}</h4>

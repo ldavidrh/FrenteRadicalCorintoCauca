@@ -7,5 +7,5 @@ class Descuento(models.Model):
     fecha_fin = models.DateField(null = False)
 
     producto = models.ForeignKey(
-        'productos.Producto', on_delete=models.CASCADE, null = False
+        'productos.Producto', on_delete=models.CASCADE, null = False, related_name = 'descuentos'
     )
