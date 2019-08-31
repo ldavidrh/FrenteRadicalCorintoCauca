@@ -5,7 +5,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth import login, logout
 from .models import Cliente
 from ..usuarios.models import Usuario
+from apps.carritos.models import Carrito
 from apps.categorias.models import Categoria
+from django.db.models import Q
+from apps.productos.models import Producto
 
 
 # Create your views here.
@@ -42,6 +45,13 @@ def logout_view(request):
     
 def perfil_view(request, numero_documento):
     categorias = Categoria.objects.all()
+
+    if not request.user.is_authenticated:
+            carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+
     try:
         cliente = Cliente.objects.get(usuario_ptr_id=numero_documento)
     except  Cliente.DoesNotExist:
@@ -61,9 +71,21 @@ def perfil_view(request, numero_documento):
         if cliente.is_staff:
             form = FormularioModificarCuenta(instance=cliente)
         else:
-            form = FormularioModificarCliente(instance=cliente) 
+            form = FormularioModificarCliente(instance=cliente)
+    
+    queryset = request.GET.get("buscar")
+    
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
+        return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'carritos':carritos})
+    else:
+        return render(request, 'clientes/perfil.html', {'form':form, 'cliente': cliente, 'categorias': categorias, 'carritos':carritos})
             
-    return render(request, 'clientes/perfil.html', {'form':form, 'cliente': cliente, 'categorias': categorias})
 
 def change_password(request):
     if request.method=='POST':

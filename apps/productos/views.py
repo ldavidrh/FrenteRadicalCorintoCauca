@@ -7,7 +7,9 @@ from apps.categorias.models import Categoria
 from apps.subcategorias.models import Subcategoria
 from django.forms import modelformset_factory
 from apps.carritos.models import Carrito
+from apps.descuentos.models import Descuento
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 # Create your views here.
 def registrar_view(request):
@@ -44,6 +46,22 @@ def consultarProdutos_view(request):
         
     return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
+def productosDescuento_view(request):
+    categorias = Categoria.objects.all()
+    descuentos = Descuento.objects.all()
+    productos = []
+
+    for descuento in descuentos:
+        productos.append(descuento.producto)
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+        
+    return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
+
 def consultarPorSubcategoria_view(request, subcategoria_id):
     categorias = Categoria.objects.all()
     productos = Producto.objects.filter(subcategoria_id = subcategoria_id)
@@ -53,6 +71,16 @@ def consultarPorSubcategoria_view(request, subcategoria_id):
     else:
         cliente = request.user
         carritos = Carrito.objects.filter(cliente = cliente)
+
+    queryset = request.GET.get("buscar")
+    
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
 
     return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
@@ -65,6 +93,16 @@ def consultarPorCategoria_view(request, categoria_id):
     else:
         cliente = request.user
         carritos = Carrito.objects.filter(cliente = cliente)
+        
+    queryset = request.GET.get("buscar")
+    
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
 
     return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
@@ -106,8 +144,21 @@ def consultarProducto_view(request, codigo):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         detalle_form = FormularioRegistroDetail()
+    
+    queryset = request.GET.get("buscar")
 
-    return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias, 'detalle_form': detalle_form, 'carritos':carritos})
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
+        return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'carritos':carritos})
+    else:
+        return render(request, 'productos/producto.html', {'producto': producto, 'categorias': categorias, 'detalle_form': detalle_form, 'carritos':carritos})
+
+    
 
 def eliminarDetalle_view(request, id):
     detalle = Detalle.objects.get(pk=id)

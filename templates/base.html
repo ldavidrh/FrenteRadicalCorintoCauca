@@ -147,9 +147,9 @@
                 </div>
                 {% endif %}
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
+                <form method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                        <input type="text" name="buscar" class="form-control" placeholder="Buscar..." value = "{{request.GET.buscar}}">
                         <span class="input-group-btn">
                             <button type="submit" name="seach" id="search-btn" class="btn btn-flat">
                                 <i class="fa fa-search"></i>
@@ -267,7 +267,8 @@
                     {% endif %}
                     {% block barra%}
                     {% endblock barra %}
-
+                    <li><a href="{% url 'productos:descuentos' %}"><i class="fa fa-star"></i>Descuentos</a>
+                    </li>
                     <li><a href="{%static 'pages/UI/icons.html' %}"><i class="fa fa-angle-double-right"></i> Icons</a>
                     </li>
                 </ul>
