@@ -59,6 +59,16 @@ def productosDescuento_view(request):
     else:
         cliente = request.user
         carritos = Carrito.objects.filter(cliente = cliente)
+    
+    queryset = request.GET.get("buscar")
+    
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
         
     return render(request, 'productos/consultar.html',{'productos':productos, 'categorias': categorias, 'carritos':carritos})
 
