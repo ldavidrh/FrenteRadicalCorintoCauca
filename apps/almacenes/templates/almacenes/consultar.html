@@ -33,7 +33,7 @@ Almacenes
 <div class="box box-danger" style="padding: 10px">
     {% for almacen in almacenes %}
     {% if forloop.first %}<div class="row">{% endif %}
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="box box-solid box-danger">
                 <div class="box-header">
                     <h3 class="box-title">{{almacen.ciudad}}</h3>
@@ -41,13 +41,16 @@ Almacenes
                         <a href="{% url 'almacenes:modificar_almacen' almacen.id %}">
                             <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
                         </a>
-                        <a data-toggle="modal" data-target="#compose-modal_{{almacen.id}}">>
+                        <!--BOTON EL CUAL INVOCA AL MODAL-->
+                        <a data-toggle="modal" data-target="#compose-modal_{{almacen.ciudad}}">
                             <button class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i></i>
                             </button>
                         </a>
+                        <!--/BOTON EL CUAL INVOCA AL MODAL-->
                     </div>
-                    <div class="modal fade" id="compose-modal_{{almacen.id}}" tabindex="-1" role="dialog"
+                    <!--EL MODAL-->
+                    <div class="modal fade" id="compose-modal_{{almacen.ciudad}}" tabindex="-1" role="dialog"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -70,17 +73,82 @@ Almacenes
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
+                    <!--/EL MODAL-->
                 </div>
                 <div class="box-body">
                     <div class="contenido">
                         <div><b>ID:</b> {{almacen.id}}</div>
                         <div><b>Direccion:</b> {{almacen.direccion}}</div>
                     </div>
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Inventario</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                {% for inventario in almacen.inventarios.all %}
+                                <tr>
+                                    <td>{{ inventario.producto }}</td>
+                                    <td>{{ inventario.cantidad }}</td>
+
+                                    <td>
+                                        <!--Boton-->
+                                        <a data-toggle="modal" data-target="#compose-modal_{{inventario.id}}">
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <div class="modal fade" id="compose-modal_{{inventario.id}}" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">ACTUALIZAR CANTIDAD DEL PRODUCTO EN EL ALMACEN
+                                                </h4>
+                                            </div>
+                                            <form method="post" enctype="multipart/form-data"
+                                                action="{% url 'inventario:modificar' inventario.id  %}">
+                                                <div class="modal-body">
+                                                    {% csrf_token %}
+                                                    <div class="input-group">
+                                                        <h5><b>Cantidad : </b><input style="width: 100px;" type="number"
+                                                                id="cantidad_{{inventario.id}}" name="cantidad"
+                                                                value="{{inventario.cantidad}}">
+                                                        </h5>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer clearfix">
+
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                        <i class="fa fa-times"></i>Cancelar
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary pull-left">
+                                                        Actualizar
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                {% endfor %}
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
             <!--widgets-->
         </div>
-        {% if forloop.counter|divisibleby:3 %}</div>
+        {% if forloop.counter|divisibleby:2 %}</div>
     <div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
 

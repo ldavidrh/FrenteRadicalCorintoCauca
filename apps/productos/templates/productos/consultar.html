@@ -31,7 +31,7 @@ Productos
                         </div>
                         <h4 style="color: black">{{ carrito.producto.nombre }}</h4>
                         <p id="precio" type="number">
-                            $ {{ carrito.producto.precio }}
+                            $ {{ carrito.producto.oferta }}
                         </p>
                         <p id="cantidad" type="number">
                             Cantidad : {{ carrito.cantidad }}
@@ -42,7 +42,7 @@ Productos
                 {% endfor %}
             </ul>
         </li>
-        <li class="footer"><a href="#" style="color: black">Ir al carrito</a></li>
+        <li class="footer"><a href="{% url 'carritos:carrito' %}" style="color: black">Ir al carrito</a></li>
     </ul>
 </li>
 {% endblock carrito %}
@@ -73,7 +73,7 @@ Productos
     {% if forloop.first %}<div class="row">{% endif %}
         <div class="col-md-4">
             <div class="box box-solid box-danger">
-                    
+
                 <div class="box-header">
                     {% for descuento in producto.descuentos.all %}
                     <h3 class="box-title"> - {{descuento.porcentaje}}%</h3>

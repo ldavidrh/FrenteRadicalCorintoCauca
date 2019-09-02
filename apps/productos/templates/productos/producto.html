@@ -31,7 +31,7 @@ Información del producto
                         </div>
                         <h4 style="color: black">{{ carrito.producto.nombre }}</h4>
                         <p id="precio" type="number">
-                            $ {{ carrito.producto.precio }}
+                            $ {{ carrito.producto.oferta }}
                         </p>
                         <p id="cantidad" type="number">
                             Cantidad : {{ carrito.cantidad }}
@@ -42,7 +42,7 @@ Información del producto
                 {% endfor %}
             </ul>
         </li>
-        <li class="footer"><a href="#" style="color: black">Ir al carrito</a></li>
+        <li class="footer"><a href="{% url 'carritos:carrito' %}" style="color: black">Ir al carrito</a></li>
     </ul>
 </li>
 {% endblock carrito %}
@@ -82,7 +82,12 @@ Información del producto
                 <h5>Subcategoria : {{producto.subcategoria.nombre}}</h5>
                 <h5>Codigo : {{producto.codigo}}</h5>
                 <h1 class="page-header"></h1>
-                <h4><b>$</b> {{producto.precio}}</h4>
+                {% if producto.oferta == producto.precio %}
+                <h3><b>$</b> {{producto.oferta}}</h3>
+                {% else %}
+                <h3><b>$</b> {{producto.oferta}}</h3>
+                <h5><strike><b>$</b>{{producto.precio}} </strike></h5>
+                {% endif %}
                 <h5 class="text-muted"><b>IVA : </b> {{producto.iva}} %</h5>
                 <h4><b>Descripcion</b></h4>
                 <h4>{{producto.descripcion}}</h4>

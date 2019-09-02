@@ -1,6 +1,6 @@
 from django import forms
 from .models import Inventario
-class FormularioAdicionInventario(forms.ModelForm):
+class FormularioCantidad(forms.ModelForm):
     class Meta():
         model = Inventario
-        fields = ('almacen', 'producto', 'cantidad')
+        fields = ('cantidad',)

@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
-from .forms import FormularioAdicionInventario
+from .forms import FormularioCantidad
 from django.contrib import messages
+from .models import Inventario
+from django.http import HttpResponseRedirect
 #from .models import Categoria
 
-# Create your views here.
-def agregar_view(request):
-    if request.method == 'POST':
-        form = FormularioAdicionInventario(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Producto agregado a almacen exitosamente')
-            return redirect('inventario:agregar')
+def actualizarCantidad_view(request, id):
+    cantidad = int(request.POST["cantidad"])
+    if cantidad >= 0:
+        inventario = Inventario.objects.get(id=id)
+        inventario.cantidad = cantidad
+        inventario.save()
     else:
-        form = FormularioAdicionInventario()
+        messages.warning(request, 'Por favor proporcione un numero valido')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return render(request, 'inventario/agregar.html', {'form':form})
-        
+                 
