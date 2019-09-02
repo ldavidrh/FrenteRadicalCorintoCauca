@@ -6334,6 +6334,7 @@ button.close {
   position: relative;
   width: 100%;
   overflow: hidden;
+  background-color: #e5313a;
 }
 
 .carousel-inner > .item {

@@ -5,6 +5,8 @@ from .models import Producto
 from .models import Detalle
 from apps.categorias.models import Categoria
 from apps.subcategorias.models import Subcategoria
+from apps.almacenes.models import Almacen
+from apps.inventario.models import Inventario
 from django.forms import modelformset_factory
 from apps.carritos.models import Carrito
 from apps.descuentos.models import Descuento
@@ -21,11 +23,18 @@ def registrar_view(request):
             producto = form.save(commit = False)
             producto.oferta = producto.precio
             producto = form.save()
-            detalle = detalle_form.save(False)
 
+            detalle = detalle_form.save(False)
             detalle.producto=producto
             detalle.save()
 
+            almacenes = Almacen.objects.all()
+            for almacen in almacenes:
+                inventario = Inventario()
+                inventario.almacen = almacen
+                inventario.producto = producto
+                inventario.cantidad = 0
+                inventario.save()
             messages.success(request, 'Producto registrado exitosamente')
             return redirect('productos:registrar')
     else:

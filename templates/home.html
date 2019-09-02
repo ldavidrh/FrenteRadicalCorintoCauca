@@ -44,7 +44,7 @@ Bienvenido a MadLab
                                 {% endfor %}
                         </ul>
                 </li>
-                <li class="footer"><a href="#" style="color: black">Ir al carrito</a></li>
+                <li class="footer"><a href="{% url 'carritos:carrito' %}" style="color: black">Ir al carrito</a></li>
         </ul>
 </li>
 {% endblock carrito %}
@@ -74,6 +74,61 @@ Bienvenido a MadLab
 
 {% block contenido%}
 <div class="box box-danger" style="padding: 10px">
+        <div class="box box-solid">
+                <div class="box-body">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner" style="background-color: #ececec">
+                                        {% for producto in ofertas|slice:":3" %}
+                                        <div class="item {% if forloop.counter == 1 %}active{% endif %}"
+                                                id="slide{{ forloop.counter }}">
+                                                <div class="row">
+                                                        <div class="col-md-4">
+                                                                <div style="padding-top: 50px; padding-left: 15px">
+                                                                        <img src="{% static 'sale.png' %}">
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                                <div>
+                                                                        {% for descuento in producto.descuentos.all %}
+                                                                        <h2 class="box-title">NO TE PIERDAS UN
+                                                                                <b>{{descuento.porcentaje}}%</b> DE
+                                                                                DESCUENTO</h2>
+                                                                        <h3>Hasta el {{descuento.fecha_fin}}</h3>
+                                                                        {% endfor %}
+
+                                                                        <h2><b>$</b> {{producto.oferta}}</h2>
+                                                                        <h4><strike><b>$</b>{{producto.precio}}
+                                                                                </strike></h4>
+                                                                        <br>
+                                                                        <br>
+                                                                        <a
+                                                                                href="{% url 'productos:consultarProducto' producto.codigo %}">
+                                                                                <button
+                                                                                        class="btn btn-warning btn-flat">Ver
+                                                                                        producto <i class="fa fa-angle-double-right"></i></button>
+                                                                        </a>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                                <div>
+                                                                        <img src="{{ MEDIA_URL }}{{producto.imagen}}">
+                                                                </div>
+                                                        </div>
+
+                                                </div>
+                                        </div>
+                                        {% endfor %}
+                                </div>
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                        </div>
+                </div><!-- /.box-body -->
+        </div><!-- /.box -->
         {% for producto in productos %}
         {% if forloop.first %}<div class="row">{% endif %}
                 <div class="col-md-4">

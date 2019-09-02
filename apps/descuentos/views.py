@@ -41,12 +41,22 @@ def consultar_view(request):
 def modificar_view(request, id):
     categorias = Categoria.objects.all()
     descuento = Descuento.objects.get(pk = id)
+    productoMod = descuento.producto
     if request.method == 'GET':
         form = FormularioCreacionDescuento(instance = descuento)
     else:
         form = FormularioCreacionDescuento(request.POST, instance = descuento)
         if form.is_valid():
+            productoMod.oferta = productoMod.precio
+            productoMod.save()
+            form.save(commit = False)
+            id = form.cleaned_data['producto'].codigo
             form.save()
+            porcentaje = (form.cleaned_data['porcentaje'])
+            producto = Producto.objects.get(codigo = id)
+            oferta = producto.precio - (producto.precio * porcentaje)/100
+            producto.oferta = oferta
+            producto.save()
             messages.success(request, 'Descuento modificado exitosamente')
         return redirect('descuentos:consultar')
     

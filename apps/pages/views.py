@@ -12,6 +12,13 @@ from django.db.models import Q
 def home(request):
     categorias = Categoria.objects.all()
     productos = Producto.objects.all()
+
+    descuentos = Descuento.objects.all().order_by('fecha_fin')
+    ofertas = []
+
+    for descuento in descuentos:
+        ofertas.append(descuento.producto)
+
     if not request.user.is_authenticated:
         carritos = None
     else:
@@ -44,6 +51,6 @@ def home(request):
             Q(subcategoria__categoria__nombre__icontains = queryset)
         ).distinct()
 
-    return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'form_ciudades': form_ciudades, 'carritos':carritos})
+    return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'form_ciudades': form_ciudades, 'carritos':carritos, 'ofertas':ofertas})
 
 
