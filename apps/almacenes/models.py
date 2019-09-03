@@ -28,7 +28,7 @@ class Almacen(models.Model):
     ciudad = models.CharField(
         choices=CIUDAD_CHOICES,
         max_length=20,
-        default=CALI,
+        blank=True,
         unique=True
     )
 

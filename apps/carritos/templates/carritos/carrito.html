@@ -70,109 +70,136 @@ Carrito de compras
 <script>
     var total = 0;
 </script>
-<div class="box box-danger" style="padding: 10px">
-    {% for carrito in carritos %}
-    <div class="row">
-        <div class="col-md-3">
-            <div>
-                <img src="{{ MEDIA_URL }}{{carrito.producto.imagen}}">
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div>
-                <h3>{{carrito.producto.nombre}}</h3>
-                <h5 class="text-muted">{{carrito.producto.subcategoria.categoria.nombre}} /
-                    {{carrito.producto.subcategoria.nombre}}</h5>
-                <h5 class="text-muted">Codigo artículo: {{carrito.producto.codigo}}</h5>
-                <h5 class="text-muted">Vendido y entregado por {{carrito.producto.fabricante}}</h5>
-                <h5 class="text-muted"><b>IVA : </b> {{carrito.producto.iva}} %</h5>
-                <form method="post" enctype="multipart/form-data" action="{% url 'carritos:modificar' carrito.id  %}">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <h5><b>Cantidad : </b><input style="width: 100px;" type="number" id="cantidad_{{carrito.id}}"
-                                name="cantidad" value="{{carrito.cantidad}}">
-                        </h5>
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-warning btn-flat"><i class="fa fa-check"></i></button>
-                        </span>
+<div class="row">
+    <div class="col-md-9">
+        <div class="box box-danger" style="padding: 10px">
+            {% for carrito in carritos %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div>
+                        <img src="{{ MEDIA_URL }}{{carrito.producto.imagen}}">
                     </div>
-                </form>
-                <br>
-                <a href="{% url 'carritos:eliminar' carrito.id %}">
-                    <button class="btn btn-warning btn-flat">Eliminar
-                        producto</button>
-                </a>
-            </div>
 
-        </div>
-        <div class="col-md-6">
-            <div>
-                <div>
-                    <h4><b>Precio unitario : </b><span>{% if carrito.producto.oferta == carrito.producto.precio %}
-                            <b>$</b> {{carrito.producto.oferta}}
-                            {% else %}
-                            <b>$</b><strike>{{carrito.producto.precio}} </strike> {{carrito.producto.oferta}}</h4>
-                    {% endif %}
-                    </span>
                 </div>
-                <h4><b>Precio : </b><b>$</b> <span id="precio_{{carrito.id}}">{{carrito.producto.oferta}} </span></h4>
-                <h1 class="page-header"></h1>
-                <h4><b>Subtotal : $ </b>
-                    <span id="subtotal_{{carrito.id}}"></span>
-                </h4>
-                <script>
-                    var precio = parseFloat(document.getElementById("precio_{{carrito.id}}").innerText);
-                    var inputVal = document.getElementById("cantidad_{{carrito.id}}").value;
-                    var y = (precio * inputVal);
-                    total = (total + y)
-                    document.getElementById("subtotal_{{carrito.id}}").innerHTML = y;
+                <div class="col-md-5">
+                    <div>
+                        <h3>{{carrito.producto.nombre}}</h3>
+                        <h5 class="text-muted">{{carrito.producto.subcategoria.categoria.nombre}} /
+                            {{carrito.producto.subcategoria.nombre}}</h5>
+                        <h5 class="text-muted">Codigo artículo: {{carrito.producto.codigo}}</h5>
+                        <h5 class="text-muted">Vendido y entregado por {{carrito.producto.fabricante}}</h5>
+                        <h5 class="text-muted"><b>IVA : </b> {{carrito.producto.iva}} %</h5>
+                    </div>
+                    <a href="{% url 'carritos:eliminar' carrito.id %}">
+                        <button class="btn btn-warning btn-flat">Eliminar
+                            producto</button>
+                    </a>
 
-                </script>
-            </div>
-        </div>
-
-    </div>
-    <h1 class="page-header"></h1>
-    {% endfor %}
-    <div class="row">
-        <div class="col-md-3">
-            <h4>Cambia tu ciudad : </h4>
-            <form method="post" enctype="multipart/form-data">
-                <div class="input-group">
-                    {% csrf_token %}
-                    {% bootstrap_form form_ciudades %}
-                    <span class="input-group-btn" style="padding-top: 10px">
-                        <button type="submit" class="btn btn-warning btn-flat"><i class="fa fa-check"></i></button>
-                    </span>
                 </div>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <h4><i class="fa fa-map-marker"></i> Usted está en {{ciudad}}</h4>
-        </div>
-        <div class="col-md-3">
-            <h4><b>Total : </b></h4>
-        </div>
-        <div class="col-md-3">
-            <h4><b> $ </b>
-                <span id="total">xd</span>
-            </h4>
-            <h5 class="text-muted">IVA incluido</h5>
-            <a href="#">
-                <button class="btn btn-warning btn-flat">Proceder al pago</button>
-            </a>
-            <div style="padding-top: 7px">
-                <a href="{% url 'home' %}">
-                    <button class="btn btn-danger btn-flat">Continuar comprando</button>
-                </a>
-            </div>
-        </div>
-        <script>
-            var iva = (total * 0.19)
-            total = total + iva
-            document.getElementById("total").innerHTML = total;
-        </script>
-    </div>
+                <div class="col-md-4">
+                    <div>
 
+                        <div>
+                            <h4><b>Precio unitario :
+                                </b><span>{% if carrito.producto.oferta == carrito.producto.precio %}
+                                    <b>$</b> {{carrito.producto.oferta}}
+                                    {% else %}
+                                    <b>$</b><strike>{{carrito.producto.precio}} </strike> {{carrito.producto.oferta}}
+                            </h4>
+                            {% endif %}
+                            </span>
+                        </div>
+                        <h4><b>Precio : </b><b>$</b> <span id="precio_{{carrito.id}}">{{carrito.producto.oferta}}
+                            </span></h4>
+                        <h1 class="page-header"></h1>
+                        <form method="post" enctype="multipart/form-data"
+                            action="{% url 'carritos:modificar' carrito.id  %}">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <h5><b>Cantidad : </b><input style="width: 100%;" type="number"
+                                        id="cantidad_{{carrito.id}}" name="cantidad" value="{{carrito.cantidad}}">
+                                </h5>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-warning btn-flat"><i
+                                            class="fa fa-check"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                        <h4><b>Subtotal : $ </b>
+                            <span id="subtotal_{{carrito.id}}"></span>
+                        </h4>
+                        <script>
+                            var precio = parseFloat(document.getElementById("precio_{{carrito.id}}").innerText);
+                            var inputVal = document.getElementById("cantidad_{{carrito.id}}").value;
+                            var y = (precio * inputVal);
+                            total = (total + y)
+                            document.getElementById("subtotal_{{carrito.id}}").innerHTML = y;
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            <h1 class="page-header"></h1>
+            {% endfor %}
+
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="box box-danger" style="padding: 10px">
+            <h1 class="page-header">Resumen carrito</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><i class="fa fa-map-marker"></i> Usted está en <b>{{ciudad}}</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Cambia tu ciudad : </h4>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="input-group">
+                            {% csrf_token %}
+                            {% bootstrap_form form_ciudades %}
+                            <span class="input-group-btn" style="padding-top: 10px">
+                                <button type="submit" class="btn btn-warning btn-flat"><i
+                                        class="fa fa-check"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h1 class="page-header"></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>Total : </b></h5>
+                    <h3><b> $ </b>
+                        <span id="total">xd</span>
+                    </h3>
+                    <h5 class="text-muted">IVA incluido</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <h1 class="page-header"></h1>
+                    <a href="#">
+                        <button class="btn btn-warning btn-flat">Proceder al pago</button>
+                    </a>
+                    <div style="padding-top: 7px">
+                        <a href="{% url 'home' %}">
+                            <button class="btn btn-danger btn-flat">Continuar comprando</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var iva = (total * 0.19)
+                total = total + iva
+                document.getElementById("total").innerHTML = total;
+            </script>
+        </div>
+    </div>
 </div>
 {% endblock contenido%}
