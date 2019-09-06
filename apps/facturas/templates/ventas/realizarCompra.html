@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block titulo %}
+Finalizar compra
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Finalizar compra
+{% endblock titulo_contenido%}
+
+{% block carrito %}
+<li class="dropdown messages-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <image src="{% static 'carrito.png'%}" heigth="20" width="20"></image>
+
+        <span class="label label-warning">{{ carritos|length }}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header" style="color: black"><b>Tienes {{ carritos|length }} producto(s) en tu carrito</b>
+        </li>
+        <li>
+            <!-- inner menu: contains the actual data -->
+            <ul class="menu">
+                {% for carrito in carritos %}
+                <li>
+                    <a href="{% url 'productos:consultarProducto' carrito.producto.codigo %}" style="color: black">
+                        <div class="pull-left">
+                            <img src="{{ MEDIA_URL }}{{carrito.producto.imagen}}" width="75px">
+                        </div>
+                        <h4 style="color: black">{{ carrito.producto.nombre }}</h4>
+                        <p id="precio" type="number">
+                            $ {{ carrito.producto.oferta }}
+                        </p>
+                        <p id="cantidad" type="number">
+                            Cantidad : {{ carrito.cantidad }}
+                        </p>
+                    </a>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="footer"><a href="{% url 'carritos:carrito' %}" style="color: black">Ir al carrito</a></li>
+    </ul>
+</li>
+{% endblock carrito %}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido%}
+<script>
+    var total = 0;
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-danger" style="padding: 10px">
+            <h1 class="page-header"><b>Información del cliente</b></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Nombre : {{user.first_name}} {{user.last_name}}</h4>
+                    <h4>E-mail : {{user.cliente.email}}</h4>
+                    <h4>Dirección : {{user.cliente.direccion}}</h4>
+                    <h4>Telefono : {{user.cliente.telefono}}</h4>
+                    <h4>Ciudad : {{ciudad}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box box-danger" style="padding: 10px">
+            <h1 class="page-header"><b>Resumen compra</b></h1>
+            {% for carrito in carritos %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <img src="{{ MEDIA_URL }}{{carrito.producto.imagen}}">
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <h4>{{carrito.producto.nombre}}</h4>
+                        <h5><b>Cantidad:</b>
+                            <span id="cantidad_{{carrito.id}}">{{carrito.cantidad}}</span>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <div>
+                            <h5>
+                                {% if carrito.producto.oferta == carrito.producto.precio %}
+                                <b>$</b>
+                                <span id="precio_{{carrito.id}}">{{carrito.producto.oferta}}</span>
+                                {% else %}
+                                <b>$</b><strike>{{carrito.producto.precio}} </strike>
+                                <b>$</b><span id="precio_{{carrito.id}}">{{carrito.producto.oferta}}</span>
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <h1 class="page-header"></h1>
+
+                        <h4><b>Subtotal : </b>
+                            <br>
+                            <b>$</b><span id="subtotal_{{carrito.id}}"></span>
+                        </h4>
+                        <script>
+                            var precio = parseFloat(document.getElementById("precio_{{carrito.id}}").innerText);
+                            var inputVal = parseFloat(document.getElementById("cantidad_{{carrito.id}}").innerText);
+                            var y = (precio * inputVal);
+                            total = (total + y)
+                            document.getElementById("subtotal_{{carrito.id}}").innerHTML = y;
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <h1 class="page-header"></h1>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-8">
+                    <h4><b>Recargo IVA : </b></h4>
+
+                </div>
+                <div class="col-md-4">
+                    <h4><b> $ </b>
+                        <span id="iva">xd</span>
+                    </h4>
+                </div>
+            </div>
+            <h1 class="page-header"></h1>
+            <div class="row">
+                <div class="col-md-8">
+                    <h4><b>Total : </b></h4>
+
+                </div>
+                <div class="col-md-4">
+                    <h4><b> $ </b>
+                        <span id="total">xd</span>
+                    </h4>
+                    <h5 class="text-muted">IVA incluido</h5>
+                </div>
+                <script>
+                    var iva = (total * 0.19)
+                    total = total + iva
+                    document.getElementById("iva").innerHTML = iva;
+                    document.getElementById("total").innerHTML = total;
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box box-danger" style="padding: 10px">
+            <h1 class="page-header"><b>Métodos de pago</b>
+                <br>
+                <br>
+                <img src="{% static '/img/credit/visa.png' %}" />
+                <img src="{% static '/img/credit/mastercard.png' %}" />
+                <img src="{% static '/img/credit/american-express.png' %}" /></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="metodo"></label>
+                        <select class="form-control" name="metodo" id="metodo">
+                            <option value="efectivo" name="efectivo">Efectivo</option>
+                            <option value="credito" name="credito">Tarjeta de crédito</option>
+                            <option value="debito" name="debito">Tarjeta de débito</option>
+                        </select>
+                    </div>
+                    <form method="POST" id="credito" style="display:none">
+                        {% csrf_token %}
+                        {% bootstrap_form formC %}
+                        <h1 class="page-header"></h1>
+                        <button type="submit" class="btn btn-warning btn-flat" name="c" value="credito">Finalizar
+                            pago</button>
+                    </form>
+                    <form method="POST" id="debito" style="display:none">
+                        {% csrf_token %}
+                        {% bootstrap_form formD %}
+                        <h1 class="page-header"></h1>
+                        <button type="submit" class="btn btn-warning btn-flat" name="d" value="debito">Finalizar
+                            pago</button>
+                    </form>
+                    <form method="POST" id="efectivo">
+                        {% csrf_token %}
+                        <p>Paga en efectivo <b>(Ten la cantidad de dinero exacta)</b> para nuestro transportador, cuando
+                            te
+                            entreguen tus productos.</p>
+                        <h1 class="page-header"></h1>
+                        <button type="submit" class="btn btn-warning btn-flat" name="e" value="efectivo">Finalizar
+                            pago</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock contenido%}
+
+{% block js %}
+<script type="text/javascript">
+    $("#metodo").on('change', function () {
+        let metodo = $("#metodo option:selected").val();
+
+        if (metodo == 'efectivo') {
+            $('#credito').hide();
+            $('#debito').hide();
+            $('#efectivo').show();
+        } else if (metodo == 'credito') {
+            $('#credito').show();
+            $('#debito').hide();
+            $('#efectivo').hide();
+        } else {
+            $('#credito').hide();
+            $('#debito').show();
+            $('#efectivo').hide();
+        }
+    })
+
+</script>
+{% endblock js %}

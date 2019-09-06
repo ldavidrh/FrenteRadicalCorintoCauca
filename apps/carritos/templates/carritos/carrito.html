@@ -125,7 +125,7 @@ Carrito de compras
                                 </span>
                             </div>
                         </form>
-                        
+
                         <h4><b>Subtotal : $ </b>
                             <span id="subtotal_{{carrito.id}}"></span>
                         </h4>
@@ -182,11 +182,14 @@ Carrito de compras
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <h1 class="page-header"></h1>
-                    <a href="#">
+                    {% if ciudad == '-' or carritos|length == 0 %}
+                    {% else %}
+                    <a href="{% url 'facturas:pago' ciudad %}">
                         <button class="btn btn-warning btn-flat">Proceder al pago</button>
                     </a>
+                    {% endif %}
                     <div style="padding-top: 7px">
                         <a href="{% url 'home' %}">
                             <button class="btn btn-danger btn-flat">Continuar comprando</button>

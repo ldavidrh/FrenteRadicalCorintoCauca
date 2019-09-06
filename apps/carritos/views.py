@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.db.models import Q
 
+
 # Create your views here.
 def addToCart_view(request, codigo):
     producto = Producto.objects.get(codigo = codigo)
@@ -60,11 +61,9 @@ def consultarCarrito_view(request):
         if almacen_exist:
             ciudad = almacen
             messages.success(request, 'Usted cambió de locación, ahora se encuentra en ' + almacen)
-        else:
-            messages.warning(request, 'Lo sentimos, no tenemos almacenes disponibles en ' + almacen )
-        for carrito in carritos:
-            producto = carrito.producto
-            try:
+            for carrito in carritos:
+                producto = carrito.producto
+                
                 almacen = Almacen.objects.get(ciudad=ciudad)
                 inventario = Inventario.objects.get(almacen=almacen, producto=producto)
                 cantInventario = int(inventario.cantidad)
@@ -73,9 +72,10 @@ def consultarCarrito_view(request):
                 else:
                     carrito.cantidad = 1
                     carrito.save()
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            except:
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.warning(request, 'Lo sentimos, no tenemos almacenes disponibles en ' + almacen )
+        
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         form = FormularioCiudad()
     
