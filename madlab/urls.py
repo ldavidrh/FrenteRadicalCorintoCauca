@@ -34,4 +34,5 @@ urlpatterns = [
     path('descuentos/', include('apps.descuentos.urls', namespace = 'descuentos')),
     path('carritos/', include('apps.carritos.urls', namespace = 'carritos')),
     path('reportes/', include('apps.reportes.urls', namespace = 'reportes'))
+    path('facturas/', include('apps.facturas.urls', namespace = 'facturas'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -77,37 +77,47 @@ Bienvenido a MadLab
         <div class="box box-solid">
                 <div class="box-body">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner" style="background-color: #ececec">
+                                <div class="carousel-inner" style="background-color: #ececec;">
                                         {% for producto in ofertas|slice:":3" %}
                                         <div class="item {% if forloop.counter == 1 %}active{% endif %}"
                                                 id="slide{{ forloop.counter }}">
                                                 <div class="row">
                                                         <div class="col-md-4">
-                                                                <div style="padding-top: 50px; padding-left: 15px">
-                                                                        <img src="{% static 'sale.png' %}">
+                                                                <div style="padding-block-start: 35%">
+                                                                        <center>
+                                                                                <img src="{% static 'sale.png' %}">
+                                                                        </center>
                                                                 </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                                 <div>
                                                                         {% for descuento in producto.descuentos.all %}
-                                                                        <h2 class="box-title">NO TE PIERDAS UN
+                                                                        <h2 class="box-title" style="font-size:3vw;">NO
+                                                                                TE PIERDAS UN
                                                                                 <b>{{descuento.porcentaje}}%</b> DE
                                                                                 DESCUENTO</h2>
-                                                                        <h3>Hasta el {{descuento.fecha_fin}}</h3>
+                                                                        <h3 style="font-size:2vw;">Hasta el
+                                                                                {{descuento.fecha_fin}}</h3>
                                                                         {% endfor %}
 
-                                                                        <h2><b>$</b> {{producto.oferta}}</h2>
-                                                                        <h4><strike><b>$</b>{{producto.precio}}
+                                                                        <h2 style="font-size:3vw;"><b>$</b>
+                                                                                {{producto.oferta}}</h2>
+                                                                        <h4 style="font-size:2vw;">
+                                                                                <strike><b>$</b>{{producto.precio}}
                                                                                 </strike></h4>
                                                                         <br>
                                                                         <br>
-                                                                        <a
-                                                                                href="{% url 'productos:consultarProducto' producto.codigo %}">
-                                                                                <button
-                                                                                        class="btn btn-warning btn-flat">Ver
-                                                                                        producto <i class="fa fa-angle-double-right"></i></button>
-                                                                        </a>
+                                                                        <div style="padding-bottom: 5%">
+                                                                                <a
+                                                                                        href="{% url 'productos:consultarProducto' producto.codigo %}">
+                                                                                        <button
+                                                                                                class="btn btn-warning btn-flat">Ver
+                                                                                                producto <i
+                                                                                                        class="fa fa-angle-double-right"></i></button>
+                                                                                </a>
+                                                                        </div>
+
                                                                 </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -120,12 +130,14 @@ Bienvenido a MadLab
                                         </div>
                                         {% endfor %}
                                 </div>
+                                {% if ofertas|length > 0 %}
                                 <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>
                                 </a>
                                 <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>
                                 </a>
+                                {% endif %}
                         </div>
                 </div><!-- /.box-body -->
         </div><!-- /.box -->
