@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block titulo %}
+Reportes
+{% endblock titulo %}
+
+{% block titulo_contenido %}
+Reportes
+{% endblock titulo_contenido %}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido %}
+
+<!-- BAR CHART -->
+<div class="box box-danger">
+    <div class="box-header">
+        <h3 class="box-title">Bar Chart</h3>
+    </div>
+    <div class="box-body chart-responsive">
+        <div class="chart" id="bar-chart" style="height: 500px;"></div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+
+<script type="text/javascript">
+    $(function () {
+        "use strict";
+
+        //BAR CHART
+        var bar = new Morris.Bar({
+            element: 'bar-chart',
+            resize: true,
+            data: [
+                { y: '2006', a: 100, b: 90 },
+                { y: '2007', a: 75, b: 65 },
+                { y: '2008', a: 50, b: 40 },
+                { y: '2009', a: 75, b: 65 },
+                { y: '2010', a: 50, b: 40 },
+                { y: '2011', a: 75, b: 65 },
+                { y: '2012', a: 100, b: 90 }
+            ],
+            barColors: ['#00a65a', '#f56954'],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['CPU', 'DISK'],
+            hideHover: 'auto'
+        });
+    })
+</script>
+{% endblock contenido %}

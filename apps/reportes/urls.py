@@ -1,7 +1,11 @@
 from django.urls import path
 from .views import *
+
 app_name='reportes'
 
 urlpatterns= [
-    path('test/', get_data, name = 'test'),
+    path('productos_mas_vendidos/', productos_mas_vendidos, name = 'productos_mas_vendidos'),
+    path('productos_menos_vendidos/', productos_menos_vendidos, name = 'productos_menos_vendidos'),
+    path('ventas_por_fecha/', ventas_por_fecha, name = 'ventas_por_fecha'),
+    path('ventas_producto_ultimos_meses/', ventas_producto_ultimos_meses, name = 'ventas_producto_ultimos_meses'),
 ]
