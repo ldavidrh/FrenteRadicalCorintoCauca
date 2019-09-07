@@ -18,8 +18,8 @@ class Pago_debito(models.Model):
     #Tipo de cuentas de tarjeta de debito
 
     TIPO_CUENTA_CHOICES = {
-        ('cuenta_ahorros', 'Cuenta de ahorros'),
-        ('cuenta_corriente', 'Cuenta corriente'),
+        ('Cuenta de ahorros', 'Cuenta de ahorros'),
+        ('Cuenta de corriente', 'Cuenta corriente'),
     }
 
     tipo_cuenta = models.CharField(
@@ -46,7 +46,7 @@ class Pago_debito(models.Model):
     hora_aprobacion = models.TimeField()
     total = models.DecimalField(decimal_places = 2, max_digits = 14, null=True)
 
-    factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True)
+    factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True, related_name = 'debito')
 
 class Pago_credito(models.Model):
     #Cuotas
@@ -75,4 +75,4 @@ class Pago_credito(models.Model):
     hora_aprobacion = models.TimeField()
     total = models.DecimalField(decimal_places = 2, max_digits = 14, null=True)
 
-    factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True)
+    factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True, related_name = 'credito')

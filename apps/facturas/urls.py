@@ -5,4 +5,5 @@ app_name = 'facturas'
 
 urlpatterns = [
     path('pago/<str:ciudad>', pago_view, name='pago'),
+    path('compras', compras_view, name='compras'),
 ]
