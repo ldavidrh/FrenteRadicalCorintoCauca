@@ -121,7 +121,7 @@ def pago_view(request, ciudad):
     else:
         return render(request, 'ventas/realizarCompra.html', {'formC': formC, 'formD': formD, 'categorias': categorias, 'carritos':carritos, 'ciudad': ciudad})
 
-def compras_view(request):
+def compras_view(request, numero_documento):
     categorias = Categoria.objects.all()
 
     if not request.user.is_authenticated:
@@ -133,7 +133,7 @@ def compras_view(request):
     if not request.user.is_authenticated:
         facturas = None
     else:
-        cliente = request.user
+        cliente = Usuario.objects.get(numero_documento = numero_documento)
         facturas = Factura.objects.filter(cliente = cliente)
 
     
