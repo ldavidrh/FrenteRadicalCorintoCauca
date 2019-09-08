@@ -5,6 +5,7 @@ from django.db.models import Sum, F
 from apps.almacenes.models import Almacen
 from apps.productos_vendidos.models import Producto_vendido
 from apps.categorias.models import Categoria
+from apps.inventario.models import Inventario
 
 # Create your views here.
 categorias = Categoria.objects.all()
@@ -28,5 +29,10 @@ def ventas_producto_ultimos_meses(request):
     producto_id = str(id)
     
     ventas_ultimos_meses = list(Producto_vendido.objects.select_related('producto__nombre').filter(factura__fecha__range=[previous_date, actual_date]).values(nombre = F('producto__nombre')).annotate(cantidad = Sum('cantidad_vendida')))
-    print(ventas_ultimos_meses)
+ 
     return render(request, 'reportes/ventas_producto_ultimos_meses.html', {'ventas_ultimos_meses': ventas_ultimos_meses, 'actual_date':actual_date, 'previous_date': previous_date, 'categorias':categorias})
+
+def productos_baja_existencia(request):
+    existencia_productos = Inventario.objects.select_related('almacen__ciudad', 'producto__nombre').values(almacen_ciudad = F('almacen__ciudad'), nombre_producto = F('producto__nombre')).annotate(cantidad_producto = Sum('cantidad')).filter(cantidad_producto__lte=10)
+    print(existencia_productos)
+    return render(request, 'reportes/baja_existencia.html', {'existencia_productos':existencia_productos, 'categorias':categorias})
