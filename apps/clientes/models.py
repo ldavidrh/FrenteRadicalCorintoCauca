@@ -1,11 +1,9 @@
 from django.db import models
+from apps.usuarios.models import Usuario
+from django.conf import settings
 
 # Create your models here.
-class Cliente(models.Model):
-    nombre = models.TextField()
-    tipo_documento = models.TextField()
-    num_documento = models.IntegerField(primary_key=True)
-    telefono = models.IntegerField()
-    direccion = models.TextField()
-    fecha_nacimiento = models.DateField()
-    activo = models.BooleanField(default = True)
+class Cliente(Usuario):
+    
+    telefono = models.CharField(max_length = 10)
+    direccion = models.CharField(max_length = 40)

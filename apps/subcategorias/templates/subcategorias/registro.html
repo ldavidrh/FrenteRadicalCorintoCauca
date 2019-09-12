@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+
+{% block titulo %}
+Registrar Subcategoria
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Registrar Subcategoria
+{% endblock titulo_contenido%}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido%}
+<div class="box box-danger" style="padding: 10px">
+    <form method="POST">
+        <div>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+        </div>
+        <div>
+            <button type="submit">Agregar</button>
+        </div>
+    </form>
+</div>
+{% endblock contenido%}

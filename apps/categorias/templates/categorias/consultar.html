@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Consultar categorias
+{% endblock titulo%}
+
+{% block titulo_contenido%}
+Categorias
+{% endblock titulo_contenido%}
+
+{% block ciudad %}
+<h5>Usted está en BOGOTA</h5>
+<div class="btn-group">
+    <button type="button" class="btn btn-default">Action</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+</div>
+{% endblock ciudad %}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido %}
+<!--filas donde se contendran 3 widgets-->
+<div class="box box-danger" style="padding: 10px">
+    {% for categoria in categorias %}
+    {% if forloop.first %}<div class="row">{% endif %}
+        <div class="col-md-4">
+            <div class="box box-solid box-danger">
+                <div class="box-header">
+                    <h3 class="box-title">{{categoria.nombre}}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="{% url 'categorias:modificar_categoria' categoria.id %}">
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
+                        </a>
+                        <a data-toggle="modal" data-target="#compose-modal1_{{categoria.id}}">
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i></i>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="modal fade" id="compose-modal1_{{categoria.id}}" tabindex="-1" role="dialog"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">¿Esta seguro que desea eliminar esta categoria?</h4>
+                                </div>
+
+                                <div class="modal-footer clearfix">
+
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                            class="fa fa-times"></i>Cancelar</button>
+                                    <a href="{% url 'categorias:eliminar_categoria' categoria.id %}">
+                                        <button type="submit" class="btn btn-primary pull-left"> Si, estoy
+                                            seguro</button>
+                                    </a>
+                                </div>
+
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+                <div class="box-body">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Subcategorias</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th style="width: 10px">id</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                {% for subcategoria in categoria.subcategorias.all %}
+                                <tr>
+                                    <td>{{ subcategoria.id }}</td>
+                                    <td>{{ subcategoria.nombre }}</td>
+
+                                    <td>
+                                        <!--Boton subcategoria-->
+                                        <a href="{% url 'subcategorias:modificar_subcategoria' subcategoria.id %}">
+                                            <button class="btn btn-danger btn-sm"><i class="fa fa-pencil"></i></button>
+                                        </a>
+                                        <!--Boton eliminar-->
+                                        <a data-toggle="modal" data-target="#compose-modal_{{subcategoria.id}}">
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fa fa-times"></i></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <div class="modal fade" id="compose-modal_{{subcategoria.id}}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">¿Esta seguro que desea eliminar esta
+                                                    subcategoria?</h4>
+                                            </div>
+
+                                            <div class="modal-footer clearfix">
+
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                                        class="fa fa-times"></i>Cancelar</button>
+                                                <a
+                                                    href="{% url 'subcategorias:eliminar_subcategoria' subcategoria.id %}">
+                                                    <button type="submit" class="btn btn-primary pull-left"> Si,
+                                                        estoy
+                                                        seguro</button>
+                                                </a>
+                                            </div>
+
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                {% endfor %}
+
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <!--widgets-->
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div>
+    <div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+
+    {% endfor %}
+</div>
+
+<!--filas-->
+
+<!--widget-->
+{% endblock contenido%}
