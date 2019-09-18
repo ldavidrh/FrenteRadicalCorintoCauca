@@ -120,3 +120,32 @@ def pago_view(request, ciudad):
         return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'carritos':carritos})
     else:
         return render(request, 'ventas/realizarCompra.html', {'formC': formC, 'formD': formD, 'categorias': categorias, 'carritos':carritos, 'ciudad': ciudad})
+
+def compras_view(request, numero_documento):
+    categorias = Categoria.objects.all()
+
+    if not request.user.is_authenticated:
+        carritos = None
+    else:
+        cliente = request.user
+        carritos = Carrito.objects.filter(cliente = cliente)
+    
+    if not request.user.is_authenticated:
+        facturas = None
+    else:
+        cliente = Usuario.objects.get(numero_documento = numero_documento)
+        facturas = Factura.objects.filter(cliente = cliente)
+
+    
+    queryset = request.GET.get("buscar")
+
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(descripcion__icontains = queryset)|
+            Q(subcategoria__nombre__icontains = queryset) |
+            Q(subcategoria__categoria__nombre__icontains = queryset)
+        ).distinct()
+        return render(request, 'home.html', {'productos':productos, 'categorias': categorias, 'carritos':carritos})
+    else:
+        return render(request, 'ventas/consultar.html', {'categorias': categorias, 'carritos':carritos, 'facturas': facturas})

@@ -95,6 +95,15 @@ Clientes
                                     <div class="bio-row">
                                         <h4>Direccion : {{cliente.direccion}} </h4>
                                     </div>
+                                    <div class="bio-row">
+                                        <div class="box-tools pull-right">
+                                            <a href="{% url 'facturas:compras' cliente.numero_documento %}">
+                                                <button class="btn btn-danger btn-sm">
+                                                    Historial de compras
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +147,15 @@ Clientes
                                     </div>
                                     <div class="bio-row">
                                         <h4>Direccion : {{cliente.direccion}} </h4>
+                                    </div>
+                                    <div class="bio-row">
+                                        <div class="box-tools pull-right">
+                                            <a href="{% url 'facturas:compras' cliente.numero_documento %}">
+                                                <button class="btn btn-danger btn-sm">
+                                                    Historial de compras
+                                                </button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

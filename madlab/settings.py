@@ -54,6 +54,7 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'bootstrap_datepicker_plus',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,6 +78,10 @@ INSTALLED_APPS = [
     'apps.carritos',
     'apps.reportes',
 ]
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
