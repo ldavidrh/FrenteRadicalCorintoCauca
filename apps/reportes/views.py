@@ -8,6 +8,7 @@ from apps.productos_vendidos.models import Producto_vendido
 from apps.categorias.models import Categoria
 from apps.inventario.models import Inventario
 from apps.usuarios.models import Usuario
+from apps.facturas.models import Factura
 
 # Create your views here.
 categorias = Categoria.objects.all()
@@ -45,4 +46,17 @@ def aniversarios_mes_siguiente(request):
     aniversarios_clientes_mes_siguiente = Usuario.objects.values('first_name', 'last_name', 'tipo_documento', 'numero_documento', 'fecha_nacimiento').annotate(mes_nacimiento=Extract('fecha_nacimiento', 'month')).filter(mes_nacimiento=mes_siguiente, is_staff='f', is_superuser='f')
     print(aniversarios_clientes_mes_siguiente)
     return render(request, 'reportes/aniversarios_mes_siguiente.html', {'aniversarios_clientes_mes_siguiente':aniversarios_clientes_mes_siguiente, 'categorias':categorias})
-    
+
+
+def mayor_ingreso_dinero(request):
+    ingresos_clientes = list(Factura.objects.values(numero_documento = F('cliente__numero_documento'), nombres = F('cliente__first_name'), apellidos = F('cliente__last_name')).annotate(ingreso_total = Sum('total')))
+    contexto = []
+    for el in ingresos_clientes:
+        cliente = el.get('nombres') + ' ' + el.get('apellidos') + '(' + el.get('numero_documento') + ')'
+        ingreso_total = float(el.get('ingreso_total'))
+        element = {}
+        element['cliente'] = cliente
+        element['ingreso_total']= ingreso_total
+        contexto.append(element)
+
+    return render(request, 'reportes/mayor_ingreso_dinero.html', {'contexto':contexto, 'categorias': categorias})

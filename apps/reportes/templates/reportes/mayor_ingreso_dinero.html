@@ -34,7 +34,7 @@ Reportes
 <!-- BAR CHART -->
 <div class="box box-danger">
     <div class="box-header">
-        <h3 class="box-title">Bar Chart</h3>
+        <h3 class="box-title">Clientes que mas ingresaron dinero a la tienda</h3>
     </div>
     <div class="box-body chart-responsive">
         <div class="chart" id="bar-chart" style="height: 500px;"></div>
@@ -44,26 +44,20 @@ Reportes
 <script type="text/javascript">
     $(function () {
         "use strict";
-
+        let ingresos = {{contexto | safe}}
         //BAR CHART
         var bar = new Morris.Bar({
             element: 'bar-chart',
             resize: true,
-            data: [
-                { y: '2006', a: 100, b: 90 },
-                { y: '2007', a: 75, b: 65 },
-                { y: '2008', a: 50, b: 40 },
-                { y: '2009', a: 75, b: 65 },
-                { y: '2010', a: 50, b: 40 },
-                { y: '2011', a: 75, b: 65 },
-                { y: '2012', a: 100, b: 90 }
-            ],
-            barColors: ['#00a65a', '#f56954'],
-            xkey: 'y',
-            ykeys: ['a', 'b'],
-            labels: ['CPU', 'DISK'],
+            data: ingresos,
+            barColors: ['#E6433B'],
+            xkey: 'cliente',
+            ykeys: ['ingreso_total'],
+            labels: ['Dinero ingresado COP'],
             hideHover: 'auto'
         });
     })
+
 </script>
+
 {% endblock contenido %}

@@ -1,4 +1,6 @@
 from django.db import models
+import random
+from django.utils import timezone
 
 # Create your models here.
 class Factura(models.Model):
@@ -39,11 +41,13 @@ class Pago_debito(models.Model):
         max_length=20,
         blank=True
     )
-    
+
+    num_aprobacion = random.randrange(500000, 1000000)
+
     numero_tarjeta = models.CharField(max_length=16)
-    numero_aprobacion = models.CharField(max_length=10)
-    fecha_aprobacion = models.DateField()
-    hora_aprobacion = models.TimeField()
+    numero_aprobacion = models.CharField(max_length=10, default = num_aprobacion)
+    fecha_aprobacion = models.DateField(auto_now_add = True)
+    hora_aprobacion = models.TimeField(auto_now_add = True)
     total = models.DecimalField(decimal_places = 2, max_digits = 14, null=True)
 
     factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True, related_name = 'debito')
@@ -68,11 +72,11 @@ class Pago_credito(models.Model):
         max_length=20,
         blank=True
     )
-
+    num_aprobacion = random.randrange(500000, 1000000)
     numero_tarjeta = models.CharField(max_length=16)
-    numero_aprobacion = models.CharField(max_length=10)
-    fecha_aprobacion = models.DateField()
-    hora_aprobacion = models.TimeField()
+    numero_aprobacion = models.CharField(max_length=10, default = num_aprobacion)
+    fecha_aprobacion = models.DateField(auto_now_add = True)
+    hora_aprobacion = models.TimeField(auto_now_add=True)
     total = models.DecimalField(decimal_places = 2, max_digits = 14, null=True)
 
     factura = models.ForeignKey('facturas.Factura', on_delete=models.CASCADE, null=True, related_name = 'credito')
