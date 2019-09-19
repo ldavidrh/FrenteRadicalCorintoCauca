@@ -36,7 +36,18 @@ def addToCart_view(request, codigo):
                 messages.success(request, 'Producto añadido exitosamente')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
-            messages.warning(request, 'No tenemos almacenes disponibles donde se encuentra localizado, por favor dirijase a su carrito y actualice su ciudad')
+            primer_almacen = Almacen.objects.all()[0]
+            inventario = Inventario.objects.get(almacen=primer_almacen, producto=producto)
+            cantInventario = int(inventario.cantidad)
+            if cantInventario == 0:
+                messages.warning(request, 'No quedan unidades de este producto donde se encuentra localizado')
+            else: 
+                carrito = Carrito()
+                carrito.cantidad = 1
+                carrito.producto = producto
+                carrito.cliente = cliente
+                carrito.save()
+                messages.success(request, 'Producto añadido exitosamente')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -80,7 +91,7 @@ def consultarCarrito_view(request):
         form = FormularioCiudad()
     
     queryset = request.GET.get("buscar")
-
+    primer_almacen = Almacen.objects.all()[0].ciudad
     #BARRA BUSQUEDA
     if queryset:
         productos = Producto.objects.filter(
@@ -94,7 +105,7 @@ def consultarCarrito_view(request):
         try:
             return render(request, 'carritos/carrito.html', {'categorias': categorias, 'carritos':carritos, 'form_ciudades': form_ciudades, 'ciudad': ciudad})
         except:
-            return render(request, 'carritos/carrito.html', {'categorias': categorias, 'carritos':carritos, 'form_ciudades': form_ciudades, 'ciudad': '-'})
+            return render(request, 'carritos/carrito.html', {'categorias': categorias, 'carritos':carritos, 'form_ciudades': form_ciudades, 'ciudad': primer_almacen})
 
 def eliminarCarrito_view(request, id):
     carrito = Carrito.objects.get(pk=id)
@@ -117,8 +128,17 @@ def cambiarCantidad_view(request, id):
             messages.warning(request, 'Solo existen ' + str(cantInventario) + ' unidades de este producto, por favor proporcione una cantidad valida')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except:       
-        messages.warning(request, 'No tenemos almacenes disponibles donde se encuentra localizado')
+    except:      
+        primer_almacen = Almacen.objects.all()[0]
+        inventario = Inventario.objects.get(almacen=primer_almacen, producto=producto)
+        cantInventario = int(inventario.cantidad)
+
+        if cantidad > 0 and cantidad <= cantInventario:
+            carrito.cantidad = cantidad
+            carrito.save()
+        else:
+            messages.warning(request, 'Solo existen ' + str(cantInventario) + ' unidades de este producto, por favor proporcione una cantidad valida')
+
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 

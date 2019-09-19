@@ -5,7 +5,7 @@ class Producto(models.Model):
     codigo = models.CharField(max_length=20, primary_key=True)
     nombre = models.CharField(max_length=50)
     imagen = models.ImageField(upload_to='productos')
-    fabricante = models.CharField(max_length=10)
+    fabricante = models.CharField(max_length=30)
     descripcion = models.TextField()
     precio = models.DecimalField(decimal_places=2, max_digits=10)
     iva = models.FloatField(default=19.0)

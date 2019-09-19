@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block titulo %}
+Total de ventas de un producto en los ultimos 6 meses
+{% endblock titulo %}
+
+{% block titulo_contenido %}
+Reportes
+{% endblock titulo_contenido %}
+
+{% block barra %}
+{% for categoria in categorias %}
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark"></i> <span>{{ categoria.nombre }}</span>
+        <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'productos:consultarPorCategoria' categoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>Ver todos</a></li>
+        {% for subcategoria in categoria.subcategorias.all %}
+        <li><a href="{% url 'productos:consultarPorSubcategoria' subcategoria.id %}"><i
+                    class="fa fa-angle-double-right"></i>{{ subcategoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+{% endblock barra %}
+
+{% block contenido %}
+<div class="box box-danger">
+    <div class="box-header">
+        <h3 class="box-title">Lista de productos</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body table-responsive" style="padding: 10px">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Tipo documento</th>
+                    <th>Numero documento</th>
+                    <th>Fecha de nacimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in aniversarios_clientes_mes_siguiente %}
+                <tr>
+                    <td>{{cliente.first_name}}</td>
+                    <td>{{cliente.last_name}}</td>
+                    <td>{{cliente.tipo_documento}}</td>
+                    <td>{{cliente.numero_documento}}</td>
+                    <td>{{cliente.fecha_nacimiento}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+{% endblock contenido %}
