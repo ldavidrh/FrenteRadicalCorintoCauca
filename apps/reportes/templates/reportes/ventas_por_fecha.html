@@ -36,6 +36,21 @@ Reportes
     <div class="box-header">
         <h3 class="box-title">Bar Chart</h3>
     </div>
+    <div class="form-group" style="padding: 10px">
+        <label>Date range:</label>
+        <form method="POST">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="reservation" name="rangepicker">
+            </div><!-- /.input group -->
+            <div class="pull-left" style="padding-top: 5px">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-sm" type="submit">Generar reporte</button>
+            </div>
+        </form>
+    </div><!-- /.form group -->
     <div class="box-body chart-responsive">
         <div class="chart" id="bar-chart" style="height: 500px;"></div>
     </div><!-- /.box-body -->
@@ -44,34 +59,25 @@ Reportes
 <script type="text/javascript">
     $(function () {
         "use strict";
-
+        let contexto = {{ventas | safe}}
         //BAR CHART
         var bar = new Morris.Bar({
             element: 'bar-chart',
             resize: true,
-            data: [
-                { y: '2006', a: 100, b: 90 },
-                { y: '2007', a: 75, b: 65 },
-                { y: '2008', a: 50, b: 40 },
-                { y: '2009', a: 75, b: 65 },
-                { y: '2010', a: 50, b: 40 },
-                { y: '2011', a: 75, b: 65 },
-                { y: '2012', a: 100, b: 90 }
-            ],
-            barColors: ['#00a65a', '#f56954'],
-            xkey: 'y',
-            ykeys: ['a', 'b'],
-            labels: ['CPU', 'DISK'],
+            data: contexto,
+            barColors: ['#E6433B'],
+            xkey: 'nombre',
+            ykeys: ['cantidad'],
+            labels: ['Cantidad vendida'],
             hideHover: 'auto'
         });
+
+        //Date range picker
+        $('#reservation').daterangepicker();
     })
 
+
+
 </script>
 
-<script type="text/javascript">
-    $(function () {
-        //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", { "placeholder": "dd/mm/yyyy" });
-    });
-</script>
 {% endblock contenido %}

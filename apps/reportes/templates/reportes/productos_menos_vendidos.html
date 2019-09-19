@@ -37,7 +37,7 @@ Reporte de productos
         <h3 class="box-title">Productos menos vendidos</h3>
     </div>
     <div class="box-body chart-responsive">
-        <div class="chart" id="donut-chart" style="height: 400px;"></div>
+        <div class="chart" id="bar-chart" style="height: 400px;"></div>
     </div><!-- /.box-body -->
 </div><!-- /.box -->
 
@@ -45,25 +45,18 @@ Reporte de productos
     $(function () {
         "use strict";
         let context = {{ menos_vendidos| safe}}
-        
-        var donut = new Morris.Donut({
-        element: 'donut-chart',
-        resize: true,
-        colors: ["#3c8dbc", "#f56954", "#00a65a", '#d537df', '#6532c1', '#d593a8', '#262760', '#3db3fa', '#0be497'],
-        data: context,
-        hideHover: 'auto'
-    });
-       /*  //BAR CHART
+        //BAR CHART
         var bar = new Morris.Bar({
             element: 'bar-chart',
             resize: true,
             data: context,
             barColors: ['#E6433B'],
-            xkey: 'producto__nombre',
-            ykeys: ['suma_cantidad'],
+            xkey: 'label',
+            ykeys: ['value'],
             labels: ['Cantidad vendida'],
             hideHover: 'auto'
-        }); */
+        }); 
     })
+
 </script>
 {% endblock contenido %}
