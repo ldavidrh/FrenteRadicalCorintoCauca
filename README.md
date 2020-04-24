@@ -17,6 +17,10 @@ Una vez creado el ambiente virtual de python, se procede a instalar las libreria
 Ejecutar el siguiente comando para instalar los dependecias del proyecto ubicados en el archivo **requirements.txt**
 
         pip install -r requirements.txt
+        
+En caso de agregar una libreria o modificar la version de una libreria existente guardar los cambios en el archivo **requirements.txt** asi:
+
+        pip freeze > requirements.txt
 
 Debido a que las carpetas **migrations** de las apps del proyecto se ignoran en el seguimiento que realiza git, es 
 necesario crear para cada app una carpeta denominada **migrations** y dentro de esta un archivo denominado **__ init __.py**
